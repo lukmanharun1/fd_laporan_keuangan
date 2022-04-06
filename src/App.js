@@ -16,9 +16,11 @@ export default class App extends Component {
   };
   handleCariKodeEmiten = async (e) => {
     clearTimeout(this.state.timeOutId);
+    // buat jeda setengah detik saat pencarian lalu ambil data di server
     const timeOutId = setTimeout(async () => {
       const cariEmiten = e.target.value;
       if (cariEmiten.length > 0 && cariEmiten.length <= 4) {
+        // cari kode emiten
           const getEmiten = await axios.get(queryParams(`${SERVICE_LAPORAN_KEUANGAN}/emiten`, {
             kode_emiten: cariEmiten,
             page: 1,
@@ -28,6 +30,7 @@ export default class App extends Component {
         this.setState({ timeOutId });
 
       } else if (cariEmiten.length > 4 && cariEmiten.length <= 50) {
+        // cari emiten
         const getEmiten = await axios.get(queryParams(`${SERVICE_LAPORAN_KEUANGAN}/emiten`, {
           nama_emiten: cariEmiten,
           pag: 1,
@@ -35,6 +38,7 @@ export default class App extends Component {
         }));
         this.setState({ cariEmiten: getEmiten.data.data.data });
       } else {
+        // kembalikan data semula
         this.setState({ cariEmiten: this.state.emitens })
       }
     }, 500);
@@ -42,8 +46,9 @@ export default class App extends Component {
   }
 
   async componentDidMount() {
-    const getAllEmiten =await axios.get(queryParams(`${SERVICE_LAPORAN_KEUANGAN}/emiten`, {
-      pag: 1,
+    // ambil seluruh data emiten
+    const getAllEmiten = await axios.get(queryParams(`${SERVICE_LAPORAN_KEUANGAN}/emiten`, {
+      page: 1,
       per_page: 20
     }));;
     const { pagination } = getAllEmiten.data.data;
@@ -72,6 +77,7 @@ export default class App extends Component {
                 <th>Kode Emiten</th>
                 <th className='p-2'>Nama Emiten</th>
                 <th className='p-2'>Jumlah Saham</th>
+                <th className='p-2'>Laporan Keuangan</th>
               </tr>
             </thead>
             <tbody>
