@@ -3,14 +3,16 @@ import React, { Component } from 'react'
 import format from '../helper/format';
 import InfoIcon from '../asset/icon/info.svg';
 import downloadIcon from '../asset/icon/download.svg';
+import { Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 export default class Emiten extends Component {
    
   render() {
-    const { emiten } = this.props;
+    const { data } = this.props;
     return (
         <>
           {
-            emiten.map((data, i) => {
+            data.map((data, i) => {
               return (
                 <tr key={`emiten ke-${i}`}>
                   <td >{++i}</td>
@@ -18,12 +20,14 @@ export default class Emiten extends Component {
                   <td className='p-1'>{data.nama_emiten}</td>
                   <td className='p-1'>{format(data.jumlah_saham)}</td>
                   <td className='p-1'>
-                    <a href={`/info/${data.kode_emiten}`} className="inline-block mx-1 fill-green-500">
-                     <img src={InfoIcon} alt={`info laporan keuangan ${data.nama_emiten}`} />
-                    </a>
-                    <a href={`/download-laporan-keuangan/${data.kode_emiten}`} className="inline-block mx-1">
-                      <img src={downloadIcon} alt={`/download laporan keuangan ${data.nama_emiten}`} />
-                    </a>
+                    {/* icon info */}
+                    <Link to={`/info/${data.kode_emiten}`} className="inline-block mx-1">
+                      <img src={InfoIcon} alt={`info laporan keuangan ${data.nama_emiten}`} />
+                    </Link>
+                    {/* icon download */}
+                    <Link to={`/download-laporan-keuangan/${data.kode_emiten}/${data.nama_emiten}`} className="inline-block mx-1">
+                      <img src={ downloadIcon} alt={`download laporan keuangan ${data.nama_emiten}`} />
+                    </Link>
                   </td>
                 </tr>
               );
@@ -32,4 +36,8 @@ export default class Emiten extends Component {
         </>
     );
   }
+}
+
+Emiten.propTypes = {
+  data: propTypes.arrayOf(propTypes.object)
 }
