@@ -8,8 +8,7 @@ export default function Dropdown(props) {
   return (
     <select name={name} id={name} className={className}>
         {
-            
-            keys.map(key => <option value={options[key]} key={key}>{key}</option>)
+          keys.map(key => <option value={options[key]} key={key}>{key}</option>)
         }
     </select>
   )

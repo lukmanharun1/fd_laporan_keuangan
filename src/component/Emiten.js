@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 
 import format from '../helper/format';
-import InfoIcon from '../asset/icon/info.svg';
 import IconDownload from './IconDownload';
 import IconInfo from './IconInfo';
 import { Link } from 'react-router-dom';

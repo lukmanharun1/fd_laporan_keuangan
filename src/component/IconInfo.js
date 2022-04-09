@@ -1,8 +1,8 @@
 import React from 'react'
 import propTypes from 'prop-types';
 export default function IconInfo(props) {
-    let { className, width, height } = props;
-    if (!className) className = 'fill-green-500';
+    let { width, height } = props;
+    const className = ['fill-green-500', props.className].join(' ');
     if (!width) width = 24
     if (!height) height = 24
 

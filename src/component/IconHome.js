@@ -1,17 +1,17 @@
 import React from 'react'
 import propTypes from 'prop-types';
 
-export default function IconDownload(props) {
+export default function IconHome(props) {
   let { width, height } = props;
   const className = ['fill-green-500', props.className].join(' ');
   if (!width) width = 24
   if (!height) height = 24
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" height={height} viewBox="0 0 24 24" width={width} className={className}><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" height={height} viewBox="0 0 24 24" width={width} className={className}><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
   )
 }
 
-IconDownload.propTypes = {
+IconHome.propTypes = {
     className: propTypes.string,
     width: propTypes.number,
     height: propTypes.number

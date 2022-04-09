@@ -4,6 +4,9 @@ import axios from 'axios';
 import IconDownload from '../component/IconDownload';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import Dropdown from '../component/Dropdown';
+import IconHome from '../component/IconHome';
+import IconInfo from '../component/IconInfo';
+import { Link } from 'react-router-dom'
 
 export default function DownloadLaporanKeuangan() {
   let params = useParams();
@@ -40,9 +43,16 @@ export default function DownloadLaporanKeuangan() {
   return (
     <>
       <div className="container mt-10">
+     
         <h1 className='text-center text-3xl text-green-500 font-bold'>Download Laporan Keuangan</h1>
         <h2 className="text-center text-xl text-green-500 font-bold mt-3">{nama_emiten} ({kode_emiten})</h2>
-        <form action="" method='post' className='flex justify-center mt-5' onSubmit={handleDownload}>
+        <form action="" method='post' className='flex justify-center mt-5 relative' onSubmit={handleDownload}>
+          <Link to='/'>
+            <IconHome className='absolute left-[34%]' />
+          </Link>
+          <Link to={`/info/${kode_emiten}`}>
+            <IconInfo className='absolute left-[37%]' />
+          </Link>
           <Dropdown name="kuartal" className='bg-green-500 text-white p-1' options={dataKuartal} />
           <Dropdown name="tahun" className='bg-green-500 text-white p-1 mx-2'options={dataTahun} reverse="true" />
           <button type='submit'>
