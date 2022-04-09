@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import downloadIcon from '../asset/icon/download.svg';
+import IconDownload from '../component/IconDownload';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import Dropdown from '../component/Dropdown';
 
@@ -46,7 +46,7 @@ export default function DownloadLaporanKeuangan() {
           <Dropdown name="kuartal" className='bg-green-500 text-white p-1' options={dataKuartal} />
           <Dropdown name="tahun" className='bg-green-500 text-white p-1 mx-2'options={dataTahun} reverse="true" />
           <button type='submit'>
-            <img src={downloadIcon} alt={`download laporan keuangan ${kode_emiten}`} />
+            <IconDownload />
           </button>
         </form>
       </div>
