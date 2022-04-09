@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import format from '../helper/format';
 import InfoIcon from '../asset/icon/info.svg';
 import IconDownload from './IconDownload';
+import IconInfo from './IconInfo';
 import { Link } from 'react-router-dom';
 import propTypes from 'prop-types';
 export default class Emiten extends Component {
@@ -22,7 +23,7 @@ export default class Emiten extends Component {
                   <td className='p-1'>
                     {/* icon info */}
                     <Link to={`/info/${data.kode_emiten}`} className="inline-block mx-1">
-                      <img src={InfoIcon} alt={`info laporan keuangan ${data.nama_emiten}`} />
+                      <IconInfo />
                     </Link>
                     {/* icon download */}
                     <Link to={`/download-laporan-keuangan/${data.kode_emiten}/${data.nama_emiten}`} className="inline-block mx-1">
