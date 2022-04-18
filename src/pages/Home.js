@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Emiten from '../component/Emiten';
+import TableEmiten from '../component/TableEmiten';
 import queryParams from '../helper/queryParams';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
+import Table from '../component/Table';
+const dataThead = [
+  'No',
+  'Kode Emiten',
+  'Nama Emiten',
+  'Jumlah Saham',
+  'Laporan Keuangan'
+];
 
 export default class Home extends Component {
-
+ 
   state = {
     emitens: [],
     cariEmiten: [],
@@ -58,33 +66,20 @@ export default class Home extends Component {
   };
   render() {
     return (
-     <div className="container mt-10">
-        <h1 className='text-center text-3xl text-green-500 font-bold'>Daftar Saham Syariah</h1>
-     
-        <div className="flex justify-center">
-            <table className="table-auto">
-            <thead>
-              <tr>
-                <th colSpan={2}>
-                <input type="text" placeholder='Cari Emiten' maxLength={50} className="mt-3 px-3 py-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-      focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 mb-2" onChange={this.handleCariKodeEmiten} />
-                </th>
-              </tr>
-              <tr className='bg-green-500 text-white'>
-                <th>No</th>
-                <th>Kode Emiten</th>
-                <th className='p-2'>Nama Emiten</th>
-                <th className='p-2'>Jumlah Saham</th>
-                <th className='p-2'>Laporan Keuangan</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-             <Emiten data={this.state.cariEmiten} />
-            </tbody>
-          </table>
+      <>
+        <h1 className='text-center text-3xl text-green-500 font-bold mt-5'>Daftar Saham Syariah</h1>
+        <div className="container mt-5 mx-2 md:mx-10">
+          <div className="flex justify-center">
+            <input type="text" placeholder='Cari Emiten' maxLength={50} className="m-3 p-3 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
+            focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 -ml-[30%] w-56 md:w-64 h-10 justify-items-center" onChange={this.handleCariKodeEmiten} />
+          </div>
+          <div className="flex justify-center">
+            <Table dataThead={dataThead} classTr='bg-green-500 text-white' classTh='p-2'>
+              <TableEmiten data={this.state.cariEmiten} />
+            </Table>
+          </div>
         </div>
-     </div>
+      </>
     );
   }
 }
