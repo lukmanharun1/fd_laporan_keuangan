@@ -8,7 +8,7 @@ export default function Table(props) {
       <thead className={classThead}>
         <tr className={classTr}>
           {
-            dataThead.map(data => <th className={classTh}>{data}</th>)
+            dataThead.map((data, i)  => <th className={classTh} key={i}>{data}</th>)
           }
         </tr>
       </thead>
@@ -21,6 +21,7 @@ export default function Table(props) {
 
 Table.propTypes = {
   dataThead: propTypes.array,
+  classTable: propTypes.string,
   classThead: propTypes.string,
   classTbody: propTypes.string,
   classTr: propTypes.string,
