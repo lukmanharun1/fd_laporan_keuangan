@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Table from '../component/Table';
+import Heading from '../component/Heading';
 import TableDownload from '../component/TableDownload';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import IconHome from '../component/IconHome';
@@ -30,8 +31,8 @@ export default function DownloadLaporanKeuangan() {
   return (
     <>
       <div className="container mt-10">
-        <h1 className='text-center text-3xl text-green-500 font-bold'>Download Laporan Keuangan</h1>
-        <h2 className="text-center text-xl text-green-500 font-bold mt-3">{nama_emiten} ({kode_emiten})</h2>
+        <Heading Tag='h1' className='text-center'>Download Laporan Keuangan</Heading>
+        <Heading Tag='h3' className='text-center mt-3'>{nama_emiten} ({kode_emiten})</Heading>
        <div className="flex justify-center mt-5 relative">
         <Link to='/'>
           <IconHome  />

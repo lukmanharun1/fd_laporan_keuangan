@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import TableEmiten from '../component/TableEmiten';
+import Heading from '../component/Heading';
 import queryParams from '../helper/queryParams';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import Table from '../component/Table';
@@ -55,7 +56,7 @@ export default class Home extends Component {
     // ambil seluruh data emiten
     const getAllEmiten = await axios.get(queryParams(`${SERVICE_LAPORAN_KEUANGAN}/emiten`, {
       page: 1,
-      per_page: 20
+      per_page: 1000
     }));;
     const { pagination } = getAllEmiten.data.data;
     this.setState({ 
@@ -67,7 +68,7 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <h1 className='text-center text-3xl text-green-500 font-bold mt-5'>Daftar Saham Syariah</h1>
+        <Heading Tag='h1' className='text-center mt-5'>Daftar Saham Syariah</Heading>
         <div className="container mt-5 mx-2 md:mx-10">
           <div className="flex justify-center">
             <input type="text" placeholder='Cari Emiten' maxLength={50} className="m-3 p-3 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
