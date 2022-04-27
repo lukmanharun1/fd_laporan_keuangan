@@ -23,7 +23,7 @@ export default function Heading(props) {
   )
 }
 Heading.propTypes = {
-  Tag: propTypes.oneOf('h1', 'h2', 'h3', 'h4', 'h5', 'h6'),
+  Tag: propTypes.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6']),
   color: propTypes.string,
   className: propTypes.string
 }

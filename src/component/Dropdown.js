@@ -2,13 +2,17 @@ import React from 'react'
 import propTypes from 'prop-types';
 
 export default function Dropdown(props) {
-    const { name, options, className, reverse } = props;
+    const { name, options, className, reverse, onChange } = props;
     let keys = Object.keys(options);
     if (reverse) keys = keys.reverse();
   return (
-    <select name={name} id={name} className={className}>
+    <select name={name} id={name} className={`rounded-sm ${className}`} onChange={onChange}>
         {
-          keys.map(key => <option value={options[key]} key={key}>{key}</option>)
+          keys.map(key => {
+            return (
+              <option value={options[key]} key={key}>{key}</option>
+            );
+          })
         }
     </select>
   )
@@ -16,7 +20,8 @@ export default function Dropdown(props) {
 
 Dropdown.prototype = {
     name: propTypes.string,
-    options: propTypes.object,
+    options: propTypes.object.isRequired,
     className: propTypes.string,
-    reverse: propTypes.bool
+    reverse: propTypes.bool,
+    onChange: propTypes.func
 }
