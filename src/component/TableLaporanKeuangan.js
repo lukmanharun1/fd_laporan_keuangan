@@ -83,10 +83,7 @@ export default function TableLaporanKeuangan(props) {
         dataTbody.map((data, i) => {
           return (
             <tr className='text-center' key={`table laporan keuangan ke ${i}`}>
-              <td className='p-1'>{
-                    dataTbody[i].tanggal.split('-')[0] 
-                  }
-              </td>
+              <td className='p-1'>{dataTbody[i].tanggal.split('-')[0]}</td>
               {
                 propertiLoop.map((properti, i) => {
                   return (

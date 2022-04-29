@@ -64,10 +64,15 @@ export default function Info() {
   const { kode_emiten } = params;
   useEffect(() => {
     document.title = `info laporan keuangan ${kode_emiten}`;
+    // handle error neraca keuangan saat get Q4
+    if (jenisLaporanKeuangan === 'neraca-keuangan' && jenisTanggalLaporan === 'Q4') {
+      setJenisTanggalLaporan('TAHUNAN');
+    }
     let urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}/${jenisTanggalLaporan}`;
     if (jenisLaporanKeuangan === 'dividen') {
       urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}`;
     }
+    console.log(urlLaporanKeuangan);
     axios.get(urlLaporanKeuangan).then((laporanKeuangan) => {
       const { nama_emiten, data } = laporanKeuangan.data;
       setDataTbody(data);
@@ -76,13 +81,13 @@ export default function Info() {
   }, [kode_emiten, jenisLaporanKeuangan, jenisTanggalLaporan]);
   return (
       <div className="mx-2">
-        <Heading Tag='h1' className='text-center mt-3'>
-          Laporan Keuangan {kode_emiten}
+        <Heading Tag='h3' className='text-center mt-3'>
+          Laporan Keuangan {namaEmiten}
         </Heading>
         <Heading Tag='h4' className='mb-3'>Data Laporan Keuangan</Heading>
         <Dropdown options={optionsLaporanKeuangan} className='bg-green-500 p-2 text-white' onChange={handleOptionsLaporanKeuangan} />
         <Dropdown options={optionsTanggalLaporan} className='bg-green-500 p-2 text-white ml-3 mb-3' onChange={handleOptionsTanggalLaporan} />
-        <Heading Tag='h5' className='inline-block ml-3'>{namaEmiten}</Heading>
+        <Heading Tag='h5' className='inline-block ml-3'>Kode Emiten {kode_emiten}</Heading>
         {dataTbody.length > 0 && (
           <TableLaporanKeuangan dataTbody={dataTbody} namaLaporan={jenisLaporanKeuangan} jenisLaporan={jenisTanggalLaporan} />
         )}
