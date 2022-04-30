@@ -1,6 +1,7 @@
 import React from 'react';
 import IconDownload from './IconDownload';
 import propTypes from 'prop-types';
+import Button from './Button';
 export default function TableDownload(props) {
   const { data } = props;
   if (data.length == 0) {
@@ -23,9 +24,9 @@ export default function TableDownload(props) {
               <td className='p-1'>{data.tanggal.split('T')[0]}</td>
               <td className='p-1'>
                 {/* icon download */}
-                <a href={data.download} target="_blank" className="inline-block mx-1">
+                <Button type='link' isExternal href={data.download} target='_blank' className="inline-block mx-1">
                   <IconDownload />
-                </a>
+                </Button>
               </td>
             </tr>
           );
