@@ -70,6 +70,7 @@ export default function Info() {
     }
     let urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}/${jenisTanggalLaporan}`;
     if (jenisLaporanKeuangan === 'dividen') {
+      setJenisTanggalLaporan('TAHUNAN');
       urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}`;
     }
     console.log(urlLaporanKeuangan);
