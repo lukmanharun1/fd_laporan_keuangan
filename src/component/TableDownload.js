@@ -4,7 +4,7 @@ import propTypes from 'prop-types';
 import Button from './Button';
 export default function TableDownload(props) {
   const { data } = props;
-  if (data.length == 0) {
+  if (data.length === 0) {
     return (
       <tr>
         <td></td>
