@@ -7,7 +7,7 @@ import TableDownload from '../component/TableDownload';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import IconHome from '../component/IconHome';
 import IconInfo from '../component/IconInfo';
-import { Link } from 'react-router-dom';
+import Button from '../component/Button';
 const dataThead = [
   'No',
   'Nama File',
@@ -34,12 +34,12 @@ export default function DownloadLaporanKeuangan() {
         <Heading Tag='h1' className='text-center'>Download Laporan Keuangan</Heading>
         <Heading Tag='h3' className='text-center mt-3'>{nama_emiten} ({kode_emiten})</Heading>
        <div className="flex justify-center mt-5 relative">
-        <Link to='/'>
-          <IconHome  />
-        </Link>
-        <Link to={`/info/${kode_emiten}`}>
-          <IconInfo  />
-        </Link>
+        <Button type='link' href='/'>
+        <IconHome />
+        </Button>
+        <Button type='link' href={`/info/${kode_emiten}`}>
+          <IconInfo />
+        </Button>
        </div>
         <div className="flex justify-center mt-3">
           <Table dataThead={dataThead} classTr='bg-green-500 text-white' classTh='p-2' classTable='text-center'>
