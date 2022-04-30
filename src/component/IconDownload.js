@@ -12,7 +12,7 @@ export default function IconDownload(props) {
 }
 
 IconDownload.propTypes = {
-    className: propTypes.string,
-    width: propTypes.number,
-    height: propTypes.number
+  className: propTypes.string,
+  width: propTypes.number,
+  height: propTypes.number
 }

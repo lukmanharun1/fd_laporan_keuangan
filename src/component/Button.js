@@ -5,7 +5,7 @@ export default function Button(props) {
   const { type, href, target, onClick, isExternal, isPrimary, children } = props;
   const className = [props.className];
   if (isPrimary) {
-    className.push('p-3 text-white bg-green-500 hover:bg-green-600 rounded-sm');
+    className.push('p-2 text-white bg-green-500 hover:bg-green-600 rounded-sm');
   }
   if (type === 'link') {
     if (isExternal) {

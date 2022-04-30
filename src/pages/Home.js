@@ -5,6 +5,8 @@ import Heading from '../component/Heading';
 import queryParams from '../helper/queryParams';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import Table from '../component/Table';
+import Button from '../component/Button';
+import IconAdd from '../component/IconAdd';
 const dataThead = [
   'No',
   'Kode Emiten',
@@ -64,7 +66,11 @@ export default function Home() {
       <div className="container mt-5 mx-2 md:mx-10">
         <div className="flex justify-center">
           <input type="text" placeholder='Cari Emiten' maxLength={50} className="m-3 p-3 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-          focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 -ml-[30%] w-56 md:w-64 h-10 justify-items-center" onChange={handleCariKodeEmiten} />
+          focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 -ml-[22%] w-56 md:w-64 h-10 justify-items-center" onChange={handleCariKodeEmiten} />
+          <Button isPrimary href='/tambah-data-emiten' type='link' className='mt-3 h-10'>
+            <IconAdd className='inline fill-white' />
+            Data Emiten
+          </Button>
         </div>
         <div className="flex justify-center">
           <Table dataThead={dataThead} classTr='bg-green-500 text-white' classTh='p-2'>
