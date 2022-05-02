@@ -19,6 +19,7 @@ const dataThead = [
 export default function DownloadLaporanKeuangan() {
   let params = useParams();
   const { kode_emiten, nama_emiten } = params;
+  document.title = `Download Laporan Keuangan ${kode_emiten} | ${nama_emiten}`;
   const [dataLaporanKeuangan, setDataLaporanKeuangan] = useState([]);
   useEffect(() => {
     // ambil data laporan keuangan
