@@ -50,6 +50,8 @@ export default function Home() {
     }, 500);
     setTimeoutId(timeOutId);
   }
+  const title = 'Daftar Saham Syariah';
+  document.title = title;
   useEffect(() => {
     axios.get(queryParams(`${SERVICE_LAPORAN_KEUANGAN}/emiten`, {
       page: 1,
@@ -62,7 +64,7 @@ export default function Home() {
   }, []);
   return (
     <>
-      <Heading Tag='h1' className='text-center mt-5'>Daftar Saham Syariah</Heading>
+      <Heading Tag='h1' className='text-center mt-5'>{title}</Heading>
       <div className="container mt-5 mx-2 md:mx-10">
         <div className="flex justify-center">
           <input type="text" placeholder='Cari Emiten' maxLength={50} className="m-3 p-3 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
