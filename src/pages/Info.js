@@ -62,8 +62,8 @@ export default function Info() {
   
   const params = useParams();
   const { kode_emiten } = params;
+  document.title = `info laporan keuangan ${kode_emiten}`;
   useEffect(() => {
-    document.title = `info laporan keuangan ${kode_emiten}`;
     // handle error neraca keuangan saat get Q4
     if (jenisLaporanKeuangan === 'neraca-keuangan' && jenisTanggalLaporan === 'Q4') {
       setJenisTanggalLaporan('TAHUNAN');
