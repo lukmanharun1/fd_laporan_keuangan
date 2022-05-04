@@ -30,24 +30,22 @@ export default function DownloadLaporanKeuangan() {
     fetchLaporanKeuangan();
   }, [kode_emiten]);
   return (
-    <>
-      <div className="container mt-10">
-        <Heading Tag='h1' className='text-center'>Download Laporan Keuangan</Heading>
-        <Heading Tag='h3' className='text-center mt-3'>{nama_emiten} ({kode_emiten})</Heading>
-       <div className="flex justify-center mt-5 relative">
+    <div className="container mt-3">
+      <Heading Tag='h1' className='text-center'>Download Laporan Keuangan</Heading>
+      <Heading Tag='h3' className='text-center mt-3'>{nama_emiten} ({kode_emiten})</Heading>
+      <div className="flex justify-center mt-5 relative">
         <Button type='link' href='/'>
-        <IconHome />
+          <IconHome />
         </Button>
         <Button type='link' href={`/info/${kode_emiten}`}>
           <IconInfo />
         </Button>
-       </div>
-        <div className="flex justify-center mt-3">
-          <Table dataThead={dataThead} classTr='bg-green-500 text-white' classTh='p-2' classTable='text-center'>
-            <TableDownload data={dataLaporanKeuangan} />
-          </Table>
-        </div>
       </div>
-    </>
+      <div className="flex justify-center mt-3">
+        <Table dataThead={dataThead} classTr='bg-green-500 text-white' classTh='p-2' classTable='text-center'>
+          <TableDownload data={dataLaporanKeuangan} />
+        </Table>
+      </div>
+    </div>
   );
 }
