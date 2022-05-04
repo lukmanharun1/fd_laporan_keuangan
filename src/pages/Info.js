@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Dropdown from '../component/Dropdown';
 import Heading from '../component/Heading';
+import IconArrowBack from '../component/IconArrowBack';
+import IconAdd from '../component/IconAdd';
+import Button from '../component/Button';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import TableLaporanKeuangan from '../component/TableLaporanKeuangan';
 export default function Info() {
@@ -73,7 +76,6 @@ export default function Info() {
       setJenisTanggalLaporan('TAHUNAN');
       urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}`;
     }
-    console.log(urlLaporanKeuangan);
     axios.get(urlLaporanKeuangan).then((laporanKeuangan) => {
       const { nama_emiten, data } = laporanKeuangan.data;
       setDataTbody(data);
@@ -82,12 +84,18 @@ export default function Info() {
   }, [kode_emiten, jenisLaporanKeuangan, jenisTanggalLaporan]);
   return (
       <div className="mx-2">
+        <Button type='link' href='/' className='absolute'>
+          <IconArrowBack className='fill-green-500' />
+        </Button>
         <Heading Tag='h3' className='text-center mt-3'>
           Laporan Keuangan {namaEmiten}
         </Heading>
-        <Heading Tag='h4' className='mb-3'>Data Laporan Keuangan</Heading>
-        <Dropdown options={optionsLaporanKeuangan} className='bg-green-500 p-2 text-white' onChange={handleOptionsLaporanKeuangan} />
+        <Dropdown options={optionsLaporanKeuangan} className='bg-green-500 p-2 text-white mt-10' onChange={handleOptionsLaporanKeuangan} />
         <Dropdown options={optionsTanggalLaporan} className='bg-green-500 p-2 text-white ml-3 mb-3' onChange={handleOptionsTanggalLaporan} />
+        <Button isPrimary href={`/tambah-data-laporan-keuangan/${kode_emiten}`} type='link' className='h-10 ml-3'>
+          <IconAdd className='inline fill-white' />
+          Data Laporan Keuangan
+        </Button>
         <Heading Tag='h5' className='inline-block ml-3'>Kode Emiten {kode_emiten}</Heading>
         {dataTbody.length > 0 && (
           <TableLaporanKeuangan dataTbody={dataTbody} namaLaporan={jenisLaporanKeuangan} jenisLaporan={jenisTanggalLaporan} />

@@ -78,7 +78,7 @@ export default function TableLaporanKeuangan(props) {
     return `${resultM}M`;
   }
   return (
-    <Table dataThead={dataThead} classTr='bg-green-500 text-white' classTh='p-2'>
+    <Table dataThead={dataThead} classTr='bg-green-500 text-white' classTh={`p-2 ${namaLaporan === 'neraca-keuangan' ? 'text-sm' : ''}`}>
      {
         dataTbody.map((data, i) => {
           return (
