@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Heading from '../component/Heading';
 import Button from '../component/Button';
 import IconAdd from '../component/IconAdd';
+import InputLabel from '../component/InputLabel';
 import axios from 'axios';
 import { SERVICE_LAPORAN_KEUANGAN } from '../config';
 import Swal from 'sweetalert2';
@@ -107,37 +108,38 @@ export default function TambahEmiten() {
       <div className="flex justify-center mt-3">
         <form action="/" method="post" onSubmit={handleTambahDataEmiten}>
           {/* nama emiten */}
-          <label htmlFor="nama_emiten" className='block mt-3 text-green-500 font-semibold text-lg'>Nama Emiten</label>
-          <input
-            type="text"
-            id='nama_emiten'
-            maxLength={255}
+          <InputLabel
+            className='mt-2'
+            htmlFor='nama_emiten'
+            classInput='w-80'
+            classLabel='block'
             placeholder='contoh: PT TELKOM INDONESIA TBK'
-            className='block p-2 w-80 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-          focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500' />
-          {/* validation nama emiten */}
-          <Heading Tag='h5' color='text-red-400'>{validation.nama_emiten}</Heading>
+            maxLength={255}
+            validation={validation.nama_emiten}>
+            Nama Emiten
+          </InputLabel>
           {/* kode emiten */}
-          <label htmlFor="kode_emiten" className='block mt-3 text-green-500 font-semibold text-lg'>Kode Emiten</label>
-          <input 
-            type="text"
-            id='kode_emiten'
-            maxLength={4}
+          <InputLabel
+            className='mt-2'
+            htmlFor='kode_emiten'
+            classInput='w-80'
+            classLabel='block'
             placeholder='contoh: TLKM'
-            className='block p-2 w-80 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-          focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500' />
-           {/* validation kode emiten */}
-          <Heading Tag='h5' color='text-red-400'>{validation.kode_emiten}</Heading>
+            maxLength={4}
+            validation={validation.kode_emiten}>
+            Kode Emiten
+          </InputLabel>
           {/* jumlah saham */}
-          <label htmlFor="jumlah_saham" className='block mt-3 text-green-500 font-semibold text-lg'>Jumlah Saham</label>
-          <input
-            type="number"
-            id='jumlah_saham'
+          <InputLabel
+            className='mt-2'
+            type='number'
+            htmlFor='jumlah_saham'
+            classInput='w-80'
+            classLabel='block'
             placeholder='minimal 10 juta'
-            className='block p-2 w-80 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400
-          focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500' />
-          {/* validation jumlah saham */}
-          <Heading Tag='h5' color='text-red-400'>{validation.jumlah_saham}</Heading>
+            validation={validation.jumlah_saham}>
+            Jumlah Saham
+          </InputLabel>
           <Button isPrimary type='submit' className='mt-3 w-80'>
             <IconAdd className='inline fill-white' />
             Data Emiten
