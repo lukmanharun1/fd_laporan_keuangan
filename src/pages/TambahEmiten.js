@@ -115,6 +115,7 @@ export default function TambahEmiten() {
             classLabel='block'
             placeholder='contoh: PT TELKOM INDONESIA TBK'
             maxLength={255}
+            autoComplete='off'
             validation={validation.nama_emiten}>
             Nama Emiten
           </InputLabel>
@@ -126,6 +127,7 @@ export default function TambahEmiten() {
             classLabel='block'
             placeholder='contoh: TLKM'
             maxLength={4}
+            autoComplete='off'
             validation={validation.kode_emiten}>
             Kode Emiten
           </InputLabel>
@@ -140,7 +142,7 @@ export default function TambahEmiten() {
             validation={validation.jumlah_saham}>
             Jumlah Saham
           </InputLabel>
-          <Button isPrimary type='submit' className='mt-3 w-80'>
+          <Button isPrimary type='submit' className='mt-2 w-80'>
             <IconAdd className='inline fill-white' />
             Data Emiten
           </Button>
