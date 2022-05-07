@@ -23,9 +23,12 @@ export default function TambahEmiten() {
     'Q3': 'Q3',
     'TAHUNAN': 'TAHUNAN',
   }
-  const optionsTahun = {
-    '2011': '2011',
-    '2010': '2010'
+  const optionsTahun = {}; // isi dari tahun 2010 ~ tahun sekarang
+  let tahun2010 = 2010;
+  const selisihTahun = new Date().getFullYear() - tahun2010;
+  for (let i = 0; i <= selisihTahun; i++) {
+    optionsTahun[tahun2010] = tahun2010;
+    tahun2010++;
   }
 
   return (
@@ -41,7 +44,7 @@ export default function TambahEmiten() {
             <Heading Tag='h3'>Jenis Laporan</Heading>
             <Heading Tag='h3'>Tahun</Heading>
             <Dropdown options={optionsJenisLaporan} className='mt-2' />
-            <Dropdown options={optionsTahun} className='mt-2' />
+            <Dropdown options={optionsTahun} reverse className='mt-2' />
           </div>
           {/* file laporan keuangan */}
           <InputLabel
@@ -235,8 +238,7 @@ export default function TambahEmiten() {
           </Border>
           {/* dividen */}
           <Heading Tag='h3' className='mt-2'>
-            Dividen{" "}
-            <Heading Tag='h6' color='text-gray-500' className='inline font-normal'>Optional</Heading>
+            Dividen
           </Heading>
           <Border className="p-2">
             {/* rupiah */}
