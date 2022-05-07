@@ -90,8 +90,8 @@ export default function Info() {
         <Heading Tag='h3' className='text-center mt-3'>
           Laporan Keuangan {namaEmiten}
         </Heading>
-        <Dropdown options={optionsLaporanKeuangan} className='bg-green-500 p-2 text-white mt-10' onChange={handleOptionsLaporanKeuangan} />
-        <Dropdown options={optionsTanggalLaporan} className='bg-green-500 p-2 text-white ml-3 mb-3' onChange={handleOptionsTanggalLaporan} />
+        <Dropdown options={optionsLaporanKeuangan} className='mt-10 w-48' onChange={handleOptionsLaporanKeuangan} />
+        <Dropdown options={optionsTanggalLaporan} className='ml-3 mb-3 w-36' onChange={handleOptionsTanggalLaporan} />
         <Button isPrimary href={`/tambah-data-laporan-keuangan/${kode_emiten}`} type='link' className='h-10 ml-3'>
           <IconAdd className='inline fill-white' />
           Data Laporan Keuangan

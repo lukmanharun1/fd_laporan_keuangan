@@ -36,27 +36,27 @@ export default function TambahEmiten() {
       <Heading Tag='h2' className='text-center mt-3'>{title}</Heading>
       <div className="flex justify-center mt-3">
         <form action="/" method="post">
-            {/* jenis laporan | tahun */}
+          {/* jenis laporan | tahun */}
           <div className="grid grid-cols-2 gap-x-2">
             <Heading Tag='h3'>Jenis Laporan</Heading>
             <Heading Tag='h3'>Tahun</Heading>
-            <Dropdown options={optionsJenisLaporan} className='bg-green-500 p-2 text-white mt-2' />
-            <Dropdown options={optionsTahun} className='bg-green-500 p-2 text-white mt-2' />
+            <Dropdown options={optionsJenisLaporan} className='mt-2' />
+            <Dropdown options={optionsTahun} className='mt-2' />
           </div>
-        
           {/* file laporan keuangan */}
           <InputLabel
             className='mt-2'
+            accept='application/pdf'
             htmlFor='file_laporan_keuangan'
             classInput='w-80'
             classLabel='block'
             type='file'>
-            File Laporan Keuangan
+            File Laporan Keuangan <small className='text-red-400'>.pdf</small>
           </InputLabel>
           {/* neraca keuangan */}
           <Heading Tag='h3' className='mt-2'>
             Neraca Keuangan{" "}
-            <Heading Tag='h4' color='text-red-400' className='inline'>*</Heading>
+            <small className='text-red-400'>*</small>
           </Heading>
           <Border className='p-2'>
              {/* aset */}
@@ -152,7 +152,7 @@ export default function TambahEmiten() {
           {/* laba rugi */}
           <Heading Tag='h3' className='mt-2'>
             Laba Rugi{" "}
-            <Heading Tag='h4' color='text-red-400' className='inline'>*</Heading>
+            <small className='text-red-400'>*</small>
           </Heading>
           <Border className="p-2">
             {/* pendapatan */}
@@ -203,7 +203,7 @@ export default function TambahEmiten() {
           {/* arus kas */}
           <Heading Tag='h3' className='mt-2'>
             Arus Kas{" "}
-            <Heading Tag='h4' color='text-red-400' className='inline'>*</Heading>
+            <small className='text-red-400'>*</small>
           </Heading>
           <Border className="p-2">
             {/* operasi */}
