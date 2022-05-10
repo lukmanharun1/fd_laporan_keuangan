@@ -6,9 +6,7 @@ import axios from "axios";
 import { SERVICE_LAPORAN_KEUANGAN } from "../config";
 import Swal from "sweetalert2";
 import IconArrowBack from "../component/IconArrowBack";
-import validateKodeEmiten from "../helper/validateKodeEmiten";
 import iconDropDown from "../asset/icon/dropdown.svg";
-import Dropdown from "../component/Dropdown";
 import Border from "../component/Border";
 import { useForm } from "react-hook-form";
 import { Navigate, useParams } from "react-router-dom";
@@ -18,10 +16,8 @@ export default function TambahEmiten() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
-
   const title = `Tambah Data Laporan Keuangan ${kode_emiten}`;
   document.title = title;
   const optionsJenisLaporan = [
@@ -52,31 +48,9 @@ export default function TambahEmiten() {
     });
     tahunSekarang--;
   }
-  const initialValidation = {
-    file_laporan_keuangan: "",
-    aset: "",
-    kas_dan_setara_kas: "",
-    persediaan: "",
-    piutang: "",
-    aset_lancar: "",
-    aset_tidak_lancar: "",
-    liabilitas_jangka_pendek: "",
-    liabilitas_berbunga: "",
-    liabilitas_jangka_panjang: "",
-    ekuitas: "",
-    pendapatan: "",
-    laba_kotor: "",
-    laba_usaha: "",
-    laba_sebelum_pajak: "",
-    laba_bersih: "",
-    operasi: "",
-    investasi: "",
-    pendanaan: "",
-    dividen: "",
-  };
 
   const [isDividen, setIsDividen] = useState(false);
-  const [validation, setValidation] = useState(initialValidation);
+  const [isBackToInfo, setIsBackToInfo] = useState(false);
   function handleJenisLaporan(e) {
     if (e.target.value === "TAHUNAN") {
       setIsDividen(true);
@@ -84,37 +58,129 @@ export default function TambahEmiten() {
       setIsDividen(false);
     }
   }
-  function requiredNumber(
-    dataValidation,
-    properti,
-    message,
-    isPositive = true
-  ) {
-    if (!dataValidation) {
-      initialValidation[properti] = `${message} Wajib Diisi`;
-      setValidation({ ...initialValidation });
-    } else if (isPositive && dataValidation < 0) {
-      initialValidation[properti] = `${message} Tidak Boleh Negatif`;
-      setValidation({ ...initialValidation });
-    }
-  }
 
-  function handleFileLaporanKeuangan(e) {
-    const [uploadFileLaporanKeuangan] = e.target.files;
-    const reader = new FileReader();
-    reader.readAsDataURL(uploadFileLaporanKeuangan);
-    reader.onload = (e) => {
-      const formData = new FormData();
-      for (const dataAppend in validation) {
-        formData.append(dataAppend, validation[dataAppend]);
-      }
-      console.log(formData);
-      // console.warn(`img data ${e.target.result}`);
-      // console.log(e.target);
-    };
-  }
   async function handleTambahLaporanKeuangan(data) {
-    console.log(data);
+    const {
+      file_laporan_keuangan,
+      jenis_laporan,
+      tahun,
+      harga_saham,
+      aset,
+      kas_dan_setara_kas,
+      persediaan,
+      piutang,
+      aset_lancar,
+      aset_tidak_lancar,
+      liabilitas_jangka_pendek,
+      liabilitas_berbunga,
+      liabilitas_jangka_panjang,
+      ekuitas,
+      pendapatan,
+      laba_kotor,
+      laba_usaha,
+      laba_sebelum_pajak,
+      laba_bersih,
+      operasi,
+      investasi,
+      pendanaan,
+      dividen,
+    } = data;
+    const reader = new FileReader();
+    const formatTanggal = {
+      Q1: `${tahun}-03-31`,
+      Q2: `${tahun}-06-30`,
+      Q3: `${tahun}-09-30`,
+      TAHUNAN: `${tahun}-12-31`,
+    };
+    const tanggal = formatTanggal[jenis_laporan];
+    reader.readAsDataURL(file_laporan_keuangan[0]);
+    reader.onload = async (e) => {
+      const namaFile = file_laporan_keuangan[0].name;
+      const dataNamaFile = new Blob([e.target.result.split(",")[1]], {
+        type: "application/pdf",
+      }); // blob
+      const formData = new FormData();
+      // isi data body
+      formData.append("kode_emiten", kode_emiten);
+      formData.append("tanggal", tanggal);
+      formData.append("jenis_laporan", jenis_laporan);
+      formData.append("harga_saham", harga_saham);
+      formData.append("nama_file", dataNamaFile, namaFile);
+      // isi data neraca keuangan
+      formData.append("aset", aset);
+      formData.append("kas_dan_setara_kas", kas_dan_setara_kas);
+      formData.append("persediaan", persediaan);
+      formData.append("piutang", piutang);
+      formData.append("aset_lancar", aset_lancar);
+      formData.append("aset_tidak_lancar", aset_tidak_lancar);
+      formData.append("liabilitas_jangka_pendek", liabilitas_jangka_pendek);
+      formData.append("liabilitas_berbunga", liabilitas_berbunga);
+      formData.append("liabilitas_jangka_panjang", liabilitas_jangka_panjang);
+      formData.append("ekuitas", ekuitas);
+      // isi data laba rugi
+      formData.append("pendapatan", pendapatan);
+      formData.append("laba_kotor", laba_kotor);
+      formData.append("laba_usaha", laba_usaha);
+      formData.append("laba_sebelum_pajak", laba_sebelum_pajak);
+      formData.append("laba_bersih", laba_bersih);
+      // isi data arus kas
+      formData.append("operasi", operasi);
+      formData.append("investasi", investasi);
+      formData.append("pendanaan", pendanaan);
+
+      // isi data dividen jika jenis laporan TAHUNAN
+      if (jenis_laporan === "TAHUNAN" && dividen) {
+        formData.append("dividen", dividen);
+      }
+
+      // hit API POST /laporan-keuangan
+
+      try {
+        const laporanKeuangan = await axios.post(
+          `${SERVICE_LAPORAN_KEUANGAN}/laporan-keuangan`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+        );
+        // response success sweetalert
+        Swal.fire({
+          customClass: {
+            confirmButton: "p-2 text-white bg-green-500 rounded-sm",
+          },
+          buttonsStyling: false,
+          title: laporanKeuangan.data.message,
+          confirmButtonText: "Okey Berhasil",
+          icon: "success",
+        });
+        setIsBackToInfo(true);
+      } catch (error) {
+        let message = "";
+        const { status } = error.response;
+        if (status >= 400 && status < 500) {
+          message = `${error.response.data?.errors?.errors[0]?.param} ${error.response.data?.errors?.errors[0]?.msg}`;
+        } else {
+          // ambil error nya berupa string html pesan error di tag <pre>
+          const htmlDoc = new DOMParser().parseFromString(
+            error.response.data,
+            "text/html"
+          );
+          message = htmlDoc.querySelector("pre").textContent;
+        }
+        // error sweetalert
+        Swal.fire({
+          customClass: {
+            confirmButton: "p-2 text-white bg-red-400 rounded-sm",
+          },
+          buttonsStyling: false,
+          title: message,
+          confirmButtonText: "Maaf Sayang Sekali",
+          icon: "error",
+        });
+      }
+    };
   }
   const dataNeracaKeuangan = [
     {
@@ -185,7 +251,7 @@ export default function TambahEmiten() {
   const dataArusKas = [
     {
       name: "operasi",
-      text: "Operas",
+      text: "Operasi",
     },
     {
       name: "investasi",
@@ -198,6 +264,7 @@ export default function TambahEmiten() {
   ];
   return (
     <div className="mx-2">
+      {isBackToInfo && <Navigate to={`/info/${kode_emiten}`} />}
       <Button
         type="link"
         href={`/info/${kode_emiten}`}
@@ -213,6 +280,7 @@ export default function TambahEmiten() {
           action="/"
           method="post"
           onSubmit={handleSubmit(handleTambahLaporanKeuangan)}
+          encType="multipart/form-data"
         >
           {/* jenis laporan | tahun */}
           <div className="grid grid-cols-2 gap-x-2">
@@ -276,6 +344,34 @@ export default function TambahEmiten() {
             />
             <Heading Tag="h5" color="text-red-400">
               {errors.file_laporan_keuangan?.message}
+            </Heading>
+          </div>
+          {/* harga saham */}
+          <div className="mt-2">
+            <label
+              htmlFor="harga_saham"
+              className={`text-green-500 font-semibold text-lg block`}
+            >
+              Harga Saham <small className="text-red-400">*</small>
+            </label>
+            <input
+              id="harga_saham"
+              type="number"
+              accept="application/pdf"
+              {...register("harga_saham", {
+                required: {
+                  value: true,
+                  message: "Harga Saham Wajib Diisi",
+                },
+                min: {
+                  value: 50,
+                  message: "Harga Saham Harus 50 keatas",
+                },
+              })}
+              className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
+            />
+            <Heading Tag="h5" color="text-red-400">
+              {errors.harga_saham?.message}
             </Heading>
           </div>
           {/* neraca keuangan */}
