@@ -85,7 +85,6 @@ export default function TambahEmiten() {
       pendanaan,
       dividen,
     } = data;
-    const reader = new FileReader();
     const formatTanggal = {
       Q1: `${tahun}-03-31`,
       Q2: `${tahun}-06-30`,
@@ -93,94 +92,87 @@ export default function TambahEmiten() {
       TAHUNAN: `${tahun}-12-31`,
     };
     const tanggal = formatTanggal[jenis_laporan];
-    reader.readAsDataURL(file_laporan_keuangan[0]);
-    reader.onload = async (e) => {
-      const namaFile = file_laporan_keuangan[0].name;
-      const dataNamaFile = new Blob([e.target.result.split(",")[1]], {
-        type: "application/pdf",
-      }); // blob
-      const formData = new FormData();
-      // isi data body
-      formData.append("kode_emiten", kode_emiten);
-      formData.append("tanggal", tanggal);
-      formData.append("jenis_laporan", jenis_laporan);
-      formData.append("harga_saham", harga_saham);
-      formData.append("nama_file", dataNamaFile, namaFile);
-      // isi data neraca keuangan
-      formData.append("aset", aset);
-      formData.append("kas_dan_setara_kas", kas_dan_setara_kas);
-      formData.append("persediaan", persediaan);
-      formData.append("piutang", piutang);
-      formData.append("aset_lancar", aset_lancar);
-      formData.append("aset_tidak_lancar", aset_tidak_lancar);
-      formData.append("liabilitas_jangka_pendek", liabilitas_jangka_pendek);
-      formData.append("liabilitas_berbunga", liabilitas_berbunga);
-      formData.append("liabilitas_jangka_panjang", liabilitas_jangka_panjang);
-      formData.append("ekuitas", ekuitas);
-      // isi data laba rugi
-      formData.append("pendapatan", pendapatan);
-      formData.append("laba_kotor", laba_kotor);
-      formData.append("laba_usaha", laba_usaha);
-      formData.append("laba_sebelum_pajak", laba_sebelum_pajak);
-      formData.append("laba_bersih", laba_bersih);
-      // isi data arus kas
-      formData.append("operasi", operasi);
-      formData.append("investasi", investasi);
-      formData.append("pendanaan", pendanaan);
 
-      // isi data dividen jika jenis laporan TAHUNAN
-      if (jenis_laporan === "TAHUNAN" && dividen) {
-        formData.append("dividen", dividen);
-      }
+    const formData = new FormData();
+    // isi data body
+    formData.append("kode_emiten", kode_emiten);
+    formData.append("tanggal", tanggal);
+    formData.append("jenis_laporan", jenis_laporan);
+    formData.append("harga_saham", harga_saham);
+    formData.append("nama_file", file_laporan_keuangan[0]);
+    // isi data neraca keuangan
+    formData.append("aset", aset);
+    formData.append("kas_dan_setara_kas", kas_dan_setara_kas);
+    formData.append("persediaan", persediaan);
+    formData.append("piutang", piutang);
+    formData.append("aset_lancar", aset_lancar);
+    formData.append("aset_tidak_lancar", aset_tidak_lancar);
+    formData.append("liabilitas_jangka_pendek", liabilitas_jangka_pendek);
+    formData.append("liabilitas_berbunga", liabilitas_berbunga);
+    formData.append("liabilitas_jangka_panjang", liabilitas_jangka_panjang);
+    formData.append("ekuitas", ekuitas);
+    // isi data laba rugi
+    formData.append("pendapatan", pendapatan);
+    formData.append("laba_kotor", laba_kotor);
+    formData.append("laba_usaha", laba_usaha);
+    formData.append("laba_sebelum_pajak", laba_sebelum_pajak);
+    formData.append("laba_bersih", laba_bersih);
+    // isi data arus kas
+    formData.append("operasi", operasi);
+    formData.append("investasi", investasi);
+    formData.append("pendanaan", pendanaan);
 
+    // isi data dividen jika jenis laporan TAHUNAN
+    if (jenis_laporan === "TAHUNAN" && dividen) {
+      formData.append("dividen", dividen);
+    }
+
+    try {
       // hit API POST /laporan-keuangan
-
-      try {
-        const laporanKeuangan = await axios.post(
-          `${SERVICE_LAPORAN_KEUANGAN}/laporan-keuangan`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
-        // response success sweetalert
-        Swal.fire({
-          customClass: {
-            confirmButton: "p-2 text-white bg-green-500 rounded-sm",
+      const laporanKeuangan = await axios.post(
+        `${SERVICE_LAPORAN_KEUANGAN}/laporan-keuangan`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
           },
-          buttonsStyling: false,
-          title: laporanKeuangan.data.message,
-          confirmButtonText: "Okey Berhasil",
-          icon: "success",
-        });
-        setIsBackToInfo(true);
-      } catch (error) {
-        let message = "";
-        const { status } = error.response;
-        if (status >= 400 && status < 500) {
-          message = `${error.response.data?.errors?.errors[0]?.param} ${error.response.data?.errors?.errors[0]?.msg}`;
-        } else {
-          // ambil error nya berupa string html pesan error di tag <pre>
-          const htmlDoc = new DOMParser().parseFromString(
-            error.response.data,
-            "text/html"
-          );
-          message = htmlDoc.querySelector("pre").textContent;
         }
-        // error sweetalert
-        Swal.fire({
-          customClass: {
-            confirmButton: "p-2 text-white bg-red-400 rounded-sm",
-          },
-          buttonsStyling: false,
-          title: message,
-          confirmButtonText: "Maaf Sayang Sekali",
-          icon: "error",
-        });
+      );
+      // response success sweetalert
+      Swal.fire({
+        customClass: {
+          confirmButton: "p-2 text-white bg-green-500 rounded-sm",
+        },
+        buttonsStyling: false,
+        title: laporanKeuangan.data.message,
+        confirmButtonText: "Okey Berhasil",
+        icon: "success",
+      });
+      setIsBackToInfo(true);
+    } catch (error) {
+      let message = "";
+      const { status } = error.response;
+      if (status >= 400 && status < 500) {
+        message = `${error.response.data?.errors?.errors[0]?.param} ${error.response.data?.errors?.errors[0]?.msg}`;
+      } else {
+        // ambil error nya berupa string html pesan error di tag <pre>
+        const htmlDoc = new DOMParser().parseFromString(
+          error.response.data,
+          "text/html"
+        );
+        message = htmlDoc.querySelector("pre").textContent;
       }
-    };
+      // error sweetalert
+      Swal.fire({
+        customClass: {
+          confirmButton: "p-2 text-white bg-red-400 rounded-sm",
+        },
+        buttonsStyling: false,
+        title: message,
+        confirmButtonText: "Maaf Sayang Sekali",
+        icon: "error",
+      });
+    }
   }
   const dataNeracaKeuangan = [
     {
