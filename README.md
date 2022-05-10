@@ -4,6 +4,10 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Available Scripts
 
+1. npm install
+2. create file src/config.js
+3. install service laporan keuangan https://github.com/lukmanharun1/laporan_keuangan
+
 In the project directory, you can run:
 
 ### `npm start`
