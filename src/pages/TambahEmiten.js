@@ -93,7 +93,7 @@ export default function TambahEmiten() {
       } catch (error) {
         Swal.fire({
           customClass: {
-            confirmButton: "p-2 text-white bg-red-500 rounded-sm",
+            confirmButton: "p-2 text-white bg-red-400 rounded-sm",
           },
           buttonsStyling: false,
           title: "Data Emiten Gagal Ditambahkan",
