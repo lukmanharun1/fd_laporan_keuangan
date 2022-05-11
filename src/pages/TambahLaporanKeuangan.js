@@ -51,6 +51,13 @@ export default function TambahEmiten() {
 
   const [isDividen, setIsDividen] = useState(false);
   const [isBackToInfo, setIsBackToInfo] = useState(false);
+  const [isDollar, setIsDollar] = useState(false);
+
+  function handleSatuan(e) {
+    if (e.target.value === "dollar") {
+      setIsDollar(true);
+    }
+  }
   function handleJenisLaporan(e) {
     if (e.target.value === "TAHUNAN") {
       setIsDividen(true);
@@ -65,6 +72,7 @@ export default function TambahEmiten() {
       jenis_laporan,
       tahun,
       harga_saham,
+      satuan_rupiah,
       aset,
       kas_dan_setara_kas,
       persediaan,
@@ -101,26 +109,32 @@ export default function TambahEmiten() {
     formData.append("harga_saham", harga_saham);
     formData.append("nama_file", file_laporan_keuangan[0]);
     // isi data neraca keuangan
-    formData.append("aset", aset);
-    formData.append("kas_dan_setara_kas", kas_dan_setara_kas);
-    formData.append("persediaan", persediaan);
-    formData.append("piutang", piutang);
-    formData.append("aset_lancar", aset_lancar);
-    formData.append("aset_tidak_lancar", aset_tidak_lancar);
-    formData.append("liabilitas_jangka_pendek", liabilitas_jangka_pendek);
-    formData.append("liabilitas_berbunga", liabilitas_berbunga);
-    formData.append("liabilitas_jangka_panjang", liabilitas_jangka_panjang);
-    formData.append("ekuitas", ekuitas);
+    formData.append("aset", aset * satuan_rupiah);
+    formData.append("kas_dan_setara_kas", kas_dan_setara_kas * satuan_rupiah);
+    formData.append("persediaan", persediaan * satuan_rupiah);
+    formData.append("piutang", piutang * satuan_rupiah);
+    formData.append("aset_lancar", aset_lancar * satuan_rupiah);
+    formData.append("aset_tidak_lancar", aset_tidak_lancar * satuan_rupiah);
+    formData.append(
+      "liabilitas_jangka_pendek",
+      liabilitas_jangka_pendek * satuan_rupiah
+    );
+    formData.append("liabilitas_berbunga", liabilitas_berbunga * satuan_rupiah);
+    formData.append(
+      "liabilitas_jangka_panjang",
+      liabilitas_jangka_panjang * satuan_rupiah
+    );
+    formData.append("ekuitas", ekuitas * satuan_rupiah);
     // isi data laba rugi
-    formData.append("pendapatan", pendapatan);
-    formData.append("laba_kotor", laba_kotor);
-    formData.append("laba_usaha", laba_usaha);
-    formData.append("laba_sebelum_pajak", laba_sebelum_pajak);
-    formData.append("laba_bersih", laba_bersih);
+    formData.append("pendapatan", pendapatan * satuan_rupiah);
+    formData.append("laba_kotor", laba_kotor * satuan_rupiah);
+    formData.append("laba_usaha", laba_usaha * satuan_rupiah);
+    formData.append("laba_sebelum_pajak", laba_sebelum_pajak * satuan_rupiah);
+    formData.append("laba_bersih", laba_bersih * satuan_rupiah);
     // isi data arus kas
-    formData.append("operasi", operasi);
-    formData.append("investasi", investasi);
-    formData.append("pendanaan", pendanaan);
+    formData.append("operasi", operasi * satuan_rupiah);
+    formData.append("investasi", investasi * satuan_rupiah);
+    formData.append("pendanaan", pendanaan * satuan_rupiah);
 
     // isi data dividen jika jenis laporan TAHUNAN
     if (jenis_laporan === "TAHUNAN" && dividen) {
@@ -332,7 +346,7 @@ export default function TambahEmiten() {
                   message: "File Laporan Keuangan Wajib Diisi",
                 },
               })}
-              className={`p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80`}
+              className="cursor-pointer p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
             />
             <Heading Tag="h5" color="text-red-400">
               {errors.file_laporan_keuangan?.message}
@@ -366,6 +380,53 @@ export default function TambahEmiten() {
               {errors.harga_saham?.message}
             </Heading>
           </div>
+
+          {/* satuan */}
+          <Heading Tag="h3" className="mt-2">
+            Satuan Rupiah
+          </Heading>
+
+          {isDollar ? (
+            <>
+              <input
+                id="satuan_rupiah"
+                type="number"
+                accept="application/pdf"
+                {...register("satuan_rupiah", {
+                  required: {
+                    value: true,
+                    message: "Satuan Rupiah Wajib Diisi",
+                  },
+                  min: {
+                    value: 14000,
+                    message: "Harga Dollar Diatas Rp.14000",
+                  },
+                })}
+                placeholder="Masukkan Nilai Kurs Dollar Ke Rupiah"
+                className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
+              />
+              <Heading Tag="h5" color="text-red-400">
+                {errors.satuan_rupiah?.message}
+              </Heading>
+            </>
+          ) : (
+            <select
+              style={{
+                backgroundImage: `url(${iconDropDown})`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundSize: "1.5rem 1rem",
+              }}
+              {...register("satuan_rupiah", { onChange: handleSatuan })}
+              className="w-full appearance-none rounded-sm bg-clip-padding bg-no-repeat bg-green-500 py-1.5 px-3 text-white focus:border-green-500 focus:outline-none"
+            >
+              <option value="1">1 Rupiah</option>
+              <option value="1000">Ribu</option>
+              <option value="1000000">Juta</option>
+              <option value="1000000000">Miliar</option>
+              <option value="1000000000000">Triliun</option>
+              <option value="dollar">Dollar</option>
+            </select>
+          )}
           {/* neraca keuangan */}
           <Heading Tag="h3" className="mt-2">
             Neraca Keuangan <small className="text-red-400">*</small>
