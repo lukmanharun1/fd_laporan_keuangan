@@ -27,6 +27,7 @@ export default function Info() {
     "Laba Rugi": "laba-rugi",
     "Arus Kas": "arus-kas",
     Dividen: "dividen",
+    Rasio: "rasio",
   };
   function handleOptionsLaporanKeuangan(e) {
     const { value } = e.target;
@@ -51,11 +52,14 @@ export default function Info() {
     } else if (value === "arus-kas") {
       // arus kas
       setOptionsTanggalLaporan(dataQ4);
-    } else {
+    } else if (value === "dividen") {
       // dividen
       setOptionsTanggalLaporan({
         TAHUNAN: "TAHUNAN",
       });
+    } else if (value === "rasio") {
+      // rasio
+      setOptionsTanggalLaporan(dataQ4);
     }
     setJenisLaporanKeuangan(value);
   }
@@ -115,7 +119,7 @@ export default function Info() {
       <Heading Tag="h5" className="inline-block ml-3">
         Kode Emiten {kode_emiten}
       </Heading>
-      {dataTbody.length > 0 && (
+      {dataTbody.length > 0 && jenisLaporanKeuangan !== "rasio" && (
         <TableLaporanKeuangan
           dataTbody={dataTbody}
           namaLaporan={jenisLaporanKeuangan}

@@ -144,14 +144,14 @@ export default function TableLaporanKeuangan(props) {
         {
           className: "text-red-400",
         },
-        `(${resultM * -1} M)`
+        `(${(resultM * -1).toFixed(2)} M)`
       );
     }
     const resultT = resultM / 1000;
     if (resultT >= 1) {
-      return `${resultT} T`;
+      return `${resultT.toFixed(2)} T`;
     }
-    return `${resultM} M`;
+    return `${resultM.toFixed(2)} M`;
   }
   return (
     <>
