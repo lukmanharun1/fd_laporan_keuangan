@@ -8,6 +8,7 @@ import IconAdd from "../component/IconAdd";
 import Button from "../component/Button";
 import { SERVICE_LAPORAN_KEUANGAN } from "../config";
 import TableLaporanKeuangan from "../component/TableLaporanKeuangan";
+import RasioLaporanKeuangan from "../component/RasioLaporanKeuangan";
 export default function Info() {
   // inisialisasi data laporan keuangan
   const [jenisLaporanKeuangan, setJenisLaporanKeuangan] =
@@ -16,12 +17,19 @@ export default function Info() {
   const [namaEmiten, setNamaEmiten] = useState("Nama Emiten Tidak Ada");
 
   const [dataTbody, setDataTbody] = useState([]);
+  const [dataRasio, setDataRasio] = useState(null);
   const [optionsTanggalLaporan, setOptionsTanggalLaporan] = useState({
     TAHUNAN: "TAHUNAN",
     Q3: "Q3",
     Q2: "Q2",
     Q1: "Q1",
   });
+  const [showChartOrTable, setShowChartOrTable] = useState("chart");
+
+  const optionsChartOrTabel = {
+    Chart: "chart",
+    Tabel: "tabel",
+  };
   const optionsLaporanKeuangan = {
     "Neraca Keuangan": "neraca-keuangan",
     "Laba Rugi": "laba-rugi",
@@ -68,6 +76,10 @@ export default function Info() {
     setJenisTanggalLaporan(e.target.value);
   }
 
+  function handleChartOrTabel(e) {
+    setShowChartOrTable(e.target.value);
+  }
+
   const { kode_emiten } = useParams();
   document.title = `info laporan keuangan ${kode_emiten}`;
   useEffect(() => {
@@ -78,16 +90,23 @@ export default function Info() {
     ) {
       setJenisTanggalLaporan("TAHUNAN");
     }
-    let urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}/${jenisTanggalLaporan}`;
-    if (jenisLaporanKeuangan === "dividen") {
-      setJenisTanggalLaporan("TAHUNAN");
-      urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}`;
+    if (jenisLaporanKeuangan !== "rasio") {
+      let urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}/${jenisTanggalLaporan}`;
+      if (jenisLaporanKeuangan === "dividen") {
+        setJenisTanggalLaporan("TAHUNAN");
+        urlLaporanKeuangan = `${SERVICE_LAPORAN_KEUANGAN}/${jenisLaporanKeuangan}/${kode_emiten}`;
+      }
+      axios.get(urlLaporanKeuangan).then((laporanKeuangan) => {
+        const { nama_emiten, data } = laporanKeuangan.data;
+        setDataTbody(data);
+        if (nama_emiten) setNamaEmiten(nama_emiten);
+      });
+    } else if (jenisLaporanKeuangan === "rasio") {
+      const urlRasio = `${SERVICE_LAPORAN_KEUANGAN}/rasio/${kode_emiten}/${jenisTanggalLaporan}`;
+      axios.get(urlRasio).then((dataRasio) => {
+        setDataRasio(dataRasio.data?.data);
+      });
     }
-    axios.get(urlLaporanKeuangan).then((laporanKeuangan) => {
-      const { nama_emiten, data } = laporanKeuangan.data;
-      setDataTbody(data);
-      setNamaEmiten(nama_emiten);
-    });
   }, [kode_emiten, jenisLaporanKeuangan, jenisTanggalLaporan]);
   return (
     <div className="mx-2">
@@ -107,6 +126,12 @@ export default function Info() {
         className="ml-3 mb-3 w-36"
         onChange={handleOptionsTanggalLaporan}
       />
+
+      <Dropdown
+        options={optionsChartOrTabel}
+        className="ml-3 mb-3 w-28"
+        onChange={handleChartOrTabel}
+      />
       <Button
         isPrimary
         href={`/tambah-data-laporan-keuangan/${kode_emiten}`}
@@ -116,13 +141,17 @@ export default function Info() {
         <IconAdd className="inline fill-white" />
         Data Laporan Keuangan
       </Button>
-      <Heading Tag="h5" className="inline-block ml-3">
-        Kode Emiten {kode_emiten}
-      </Heading>
       {dataTbody.length > 0 && jenisLaporanKeuangan !== "rasio" && (
         <TableLaporanKeuangan
           dataTbody={dataTbody}
           namaLaporan={jenisLaporanKeuangan}
+          jenisLaporan={jenisTanggalLaporan}
+        />
+      )}
+      {/* tampilkan rasio jika di pilih dropdown rasio */}
+      {jenisLaporanKeuangan === "rasio" && dataRasio && (
+        <RasioLaporanKeuangan
+          data={dataRasio}
           jenisLaporan={jenisTanggalLaporan}
         />
       )}
