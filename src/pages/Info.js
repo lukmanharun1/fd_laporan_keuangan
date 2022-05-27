@@ -8,7 +8,7 @@ import IconAdd from "../component/IconAdd";
 import Button from "../component/Button";
 import { SERVICE_LAPORAN_KEUANGAN } from "../config";
 import TableLaporanKeuangan from "../component/TableLaporanKeuangan";
-import RasioLaporanKeuangan from "../component/RasioLaporanKeuangan";
+import RasioLaporanKeuangan from "../component/TableRasioLaporanKeuangan";
 export default function Info() {
   // inisialisasi data laporan keuangan
   const [jenisLaporanKeuangan, setJenisLaporanKeuangan] =
@@ -26,9 +26,9 @@ export default function Info() {
   });
   const [showChartOrTable, setShowChartOrTable] = useState("chart");
 
-  const optionsChartOrTabel = {
+  const optionsChartOrTable = {
     Chart: "chart",
-    Tabel: "tabel",
+    Table: "table",
   };
   const optionsLaporanKeuangan = {
     "Neraca Keuangan": "neraca-keuangan",
@@ -76,7 +76,8 @@ export default function Info() {
     setJenisTanggalLaporan(e.target.value);
   }
 
-  function handleChartOrTabel(e) {
+  function handleChartOrTable(e) {
+    console.log(e.target.value);
     setShowChartOrTable(e.target.value);
   }
 
@@ -128,9 +129,9 @@ export default function Info() {
       />
 
       <Dropdown
-        options={optionsChartOrTabel}
+        options={optionsChartOrTable}
         className="ml-3 mb-3 w-28"
-        onChange={handleChartOrTabel}
+        onChange={handleChartOrTable}
       />
       <Button
         isPrimary
@@ -141,20 +142,25 @@ export default function Info() {
         <IconAdd className="inline fill-white" />
         Data Laporan Keuangan
       </Button>
-      {dataTbody.length > 0 && jenisLaporanKeuangan !== "rasio" && (
-        <TableLaporanKeuangan
-          dataTbody={dataTbody}
-          namaLaporan={jenisLaporanKeuangan}
-          jenisLaporan={jenisTanggalLaporan}
-        />
-      )}
-      {/* tampilkan rasio jika di pilih dropdown rasio */}
-      {jenisLaporanKeuangan === "rasio" && dataRasio && (
-        <RasioLaporanKeuangan
-          data={dataRasio}
-          jenisLaporan={jenisTanggalLaporan}
-        />
-      )}
+      {/* tampilkan table laporan keuangan jika di pilih dropdown selain rasio dan table */}
+      {dataTbody.length > 0 &&
+        jenisLaporanKeuangan !== "rasio" &&
+        showChartOrTable === "table" && (
+          <TableLaporanKeuangan
+            dataTbody={dataTbody}
+            namaLaporan={jenisLaporanKeuangan}
+            jenisLaporan={jenisTanggalLaporan}
+          />
+        )}
+      {/* tampilkan rasio jika di pilih dropdown rasio dan table */}
+      {jenisLaporanKeuangan === "rasio" &&
+        dataRasio &&
+        showChartOrTable === "table" && (
+          <RasioLaporanKeuangan
+            data={dataRasio}
+            jenisLaporan={jenisTanggalLaporan}
+          />
+        )}
     </div>
   );
 }
