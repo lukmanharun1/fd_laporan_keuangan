@@ -216,4 +216,5 @@ export default function RasioLaporanKeuangan({ data, jenisLaporan }) {
 
 RasioLaporanKeuangan.propTypes = {
   data: propTypes.object,
+  jenisLaporan: propTypes.oneOf(["Q1", "Q2", "Q3", "Q4", "TAHUNAN"]),
 };
