@@ -86,6 +86,7 @@ export default function TambahEmiten() {
       pendapatan,
       laba_kotor,
       laba_usaha,
+      beban_bunga,
       laba_sebelum_pajak,
       laba_bersih,
       operasi,
@@ -129,6 +130,7 @@ export default function TambahEmiten() {
     formData.append("pendapatan", pendapatan * satuan_rupiah);
     formData.append("laba_kotor", laba_kotor * satuan_rupiah);
     formData.append("laba_usaha", laba_usaha * satuan_rupiah);
+    formData.append("beban_bunga", beban_bunga * satuan_rupiah);
     formData.append("laba_sebelum_pajak", laba_sebelum_pajak * satuan_rupiah);
     formData.append("laba_bersih", laba_bersih * satuan_rupiah);
     // isi data arus kas
@@ -243,6 +245,10 @@ export default function TambahEmiten() {
     {
       name: "laba_usaha",
       text: "Laba Usaha",
+    },
+    {
+      name: "beban_bunga",
+      text: "Beban Bunga",
     },
     {
       name: "laba_sebelum_pajak",
@@ -551,7 +557,6 @@ export default function TambahEmiten() {
                   <input
                     id="dividen"
                     type="number"
-                    accept="application/pdf"
                     placeholder="optional"
                     {...register("dividen", {
                       min: {
