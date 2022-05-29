@@ -67,7 +67,18 @@ export default function TableLaporanKeuangan(props) {
   function formatLaporanKeuangan(num) {
     if (num <= 1_000_000_0 && num > 0) return num;
     const resultM = num / 1_000_000_000;
+    const resultT = resultM / 1000;
+
     if (resultM < 0) {
+      if (resultM <= -1000) {
+        return React.createElement(
+          "span",
+          {
+            className: "text-red-400",
+          },
+          `(${(resultT * -1).toFixed(2)} T)`
+        );
+      }
       return React.createElement(
         "span",
         {
@@ -76,7 +87,7 @@ export default function TableLaporanKeuangan(props) {
         `(${(resultM * -1).toFixed(2)} M)`
       );
     }
-    const resultT = resultM / 1000;
+
     if (resultT >= 1) {
       return `${resultT.toFixed(2)} T`;
     }
