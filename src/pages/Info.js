@@ -8,6 +8,7 @@ import IconAdd from "../component/IconAdd";
 import Button from "../component/Button";
 import { SERVICE_LAPORAN_KEUANGAN } from "../config";
 import TableLaporanKeuangan from "../component/TableLaporanKeuangan";
+import ChartLaporanKeuangan from "../component/ChartLaporanKeuangan";
 import RasioLaporanKeuangan from "../component/TableRasioLaporanKeuangan";
 export default function Info() {
   // inisialisasi data laporan keuangan
@@ -77,7 +78,6 @@ export default function Info() {
   }
 
   function handleChartOrTable(e) {
-    console.log(e.target.value);
     setShowChartOrTable(e.target.value);
   }
 
@@ -142,7 +142,7 @@ export default function Info() {
         <IconAdd className="inline fill-white" />
         Data Laporan Keuangan
       </Button>
-      {/* tampilkan table laporan keuangan jika di pilih dropdown selain rasio dan table */}
+      {/* tampilkan table laporan keuangan jika di pilih dropdown selain rasio */}
       {dataTbody.length > 0 &&
         jenisLaporanKeuangan !== "rasio" &&
         showChartOrTable === "table" && (
@@ -152,7 +152,17 @@ export default function Info() {
             jenisLaporan={jenisTanggalLaporan}
           />
         )}
-      {/* tampilkan rasio jika di pilih dropdown rasio dan table */}
+      {/* tampilkan chart laporan keuangan jika di pilih dropdown selain rasio*/}
+      {dataTbody.length > 0 &&
+        jenisLaporanKeuangan !== "rasio" &&
+        showChartOrTable === "chart" && (
+          <ChartLaporanKeuangan
+            dataTbody={dataTbody}
+            namaLaporan={jenisLaporanKeuangan}
+            jenisLaporan={jenisTanggalLaporan}
+          />
+        )}
+      {/* tampilkan rasio jika di pilih dropdown rasio*/}
       {jenisLaporanKeuangan === "rasio" &&
         dataRasio &&
         showChartOrTable === "table" && (
