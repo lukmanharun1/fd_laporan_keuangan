@@ -45,7 +45,7 @@ export default function TableLaporanKeuangan(props) {
 
       title: {
         display: true,
-        color: "#000",
+        color: "#22c55e",
         text: `${title[propertiNamaLaporan]} | ${jenisLaporan}`,
       },
     },
