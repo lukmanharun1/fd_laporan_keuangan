@@ -133,7 +133,7 @@ export default function TableLaporanKeuangan(props) {
     );
     propertiLoop.push("cash");
   }
-  labels.map((label, i) => {
+  labels.forEach((label, i) => {
     const data = dataTbody.map((data) => {
       return data[propertiNamaLaporan]
         ? data[propertiNamaLaporan][propertiLoop[i]]
