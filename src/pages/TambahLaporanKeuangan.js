@@ -140,7 +140,7 @@ export default function TambahEmiten() {
 
     // isi data dividen jika jenis laporan TAHUNAN
     if (jenis_laporan === "TAHUNAN" && dividen) {
-      formData.append("dividen", dividen);
+      formData.append("cash", dividen);
     }
 
     try {
