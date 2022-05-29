@@ -27,6 +27,12 @@ export default function TableLaporanKeuangan(props) {
   const propertiLoop = [];
 
   const dataTahun = dataTbody.map((data) => data.tanggal.split("-")[0]);
+  const title = {
+    neraca_keuangan: "Neraca Keuangan",
+    laba_rugi: "Laba Rugi",
+    arus_kas: "Arus Kas",
+    dividen: "Dividen",
+  };
   const optionsChart = {
     responsive: true,
     plugins: {
@@ -40,7 +46,7 @@ export default function TableLaporanKeuangan(props) {
       title: {
         display: true,
         color: "#000",
-        text: `${jenisLaporan}`, // ambil dari nama laporan | jenis laporan
+        text: `${title[propertiNamaLaporan]} | ${jenisLaporan}`,
       },
     },
   };
@@ -127,13 +133,6 @@ export default function TableLaporanKeuangan(props) {
     );
     propertiLoop.push("cash");
   }
-  function generateColor() {
-    const red = Math.random() * 255;
-    const green = Math.random() * 255;
-    const blue = Math.random() * 255;
-    const alpha = Math.random();
-    return `rgba(${red}, ${green}, ${blue}, ${alpha})`;
-  }
   labels.map((label, i) => {
     const data = dataTbody.map((data) => {
       return data[propertiNamaLaporan]
@@ -152,7 +151,7 @@ export default function TableLaporanKeuangan(props) {
     datasets,
   };
   return (
-    <Bar options={optionsChart} data={dataChart} width="90%" height="28%" />
+    <Bar options={optionsChart} data={dataChart} width="90%" height="32%" />
   );
 }
 TableLaporanKeuangan.propTypes = {
