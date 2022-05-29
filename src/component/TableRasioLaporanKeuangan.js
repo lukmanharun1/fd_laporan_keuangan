@@ -13,7 +13,6 @@ export default function RasioLaporanKeuangan({ data, jenisLaporan }) {
     dividen,
     valuasi,
   } = data;
-  console.log(dividen);
 
   // inisialisasi data thead
   const dataLikuiditas = [
