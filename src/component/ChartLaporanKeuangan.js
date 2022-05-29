@@ -56,7 +56,7 @@ export default function TableLaporanKeuangan(props) {
     // neraca keuangan
     labels.push(
       "Aset",
-      "Kas Dan Setara Kas",
+      "Kas Setara Kas",
       "Persediaan",
       "Piutang",
       "Aset Lancar",
@@ -151,7 +151,7 @@ export default function TableLaporanKeuangan(props) {
     datasets,
   };
   return (
-    <div className="mt-5">
+    <div className="mt-2">
       <Bar options={optionsChart} data={dataChart} width="90%" height="32%" />
     </div>
   );
