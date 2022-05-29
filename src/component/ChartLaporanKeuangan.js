@@ -151,7 +151,9 @@ export default function TableLaporanKeuangan(props) {
     datasets,
   };
   return (
-    <Bar options={optionsChart} data={dataChart} width="90%" height="32%" />
+    <div className="mt-5">
+      <Bar options={optionsChart} data={dataChart} width="90%" height="32%" />
+    </div>
   );
 }
 TableLaporanKeuangan.propTypes = {
