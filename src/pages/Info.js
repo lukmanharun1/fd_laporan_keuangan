@@ -177,8 +177,8 @@ export default function Info() {
           />
         )}
       {/* tampilkan chart rasio jika di pilih dropdown rasio */}
-      {dataTbody.length > 0 &&
-        jenisLaporanKeuangan === "rasio" &&
+      {jenisLaporanKeuangan === "rasio" &&
+        dataRasio &&
         showChartOrTable === "chart" && (
           <ChartRasioLaporanKeuangan
             data={dataRasio}
