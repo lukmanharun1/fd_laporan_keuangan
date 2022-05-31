@@ -35,6 +35,10 @@ export default function TableLaporanKeuangan(props) {
   };
   const optionsChart = {
     responsive: true,
+    interaction: {
+      mode: "index",
+      intersect: false,
+    },
     plugins: {
       legend: {
         position: "top",
