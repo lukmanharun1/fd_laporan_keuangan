@@ -1,12 +1,13 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { SERVICE_LAPORAN_KEUANGAN } from "../config";
+import { optionsJenisLaporan } from "../constant/optionsJenisLaporan";
 import Dropdown from "../component/Dropdown";
 import Heading from "../component/Heading";
 import IconArrowBack from "../component/IconArrowBack";
 import IconAdd from "../component/IconAdd";
 import Button from "../component/Button";
-import { SERVICE_LAPORAN_KEUANGAN } from "../config";
 
 import TableLaporanKeuangan from "../component/TableLaporanKeuangan";
 import RasioLaporanKeuangan from "../component/TableRasioLaporanKeuangan";
@@ -23,42 +24,69 @@ export default function Info() {
 
   const [dataTbody, setDataTbody] = useState([]);
   const [dataRasio, setDataRasio] = useState(null);
-  const [optionsTanggalLaporan, setOptionsTanggalLaporan] = useState({
-    TAHUNAN: "TAHUNAN",
-    Q3: "Q3",
-    Q2: "Q2",
-    Q1: "Q1",
-  });
+  const [optionsTanggalLaporan, setOptionsTanggalLaporan] =
+    useState(optionsJenisLaporan);
   const [showChartOrTable, setShowChartOrTable] = useState("chart");
 
-  const optionsChartOrTable = {
-    Chart: "chart",
-    Table: "table",
-  };
-  const optionsLaporanKeuangan = {
-    "Neraca Keuangan": "neraca-keuangan",
-    "Laba Rugi": "laba-rugi",
-    "Arus Kas": "arus-kas",
-    Dividen: "dividen",
-    Rasio: "rasio",
-  };
+  const optionsChartOrTable = [
+    {
+      key: "Chart",
+      value: "chart",
+    },
+    {
+      key: "Table",
+      value: "table",
+    },
+  ];
+  const optionsLaporanKeuangan = [
+    {
+      key: "Neraca Keuangan",
+      value: "neraca-keuangan",
+    },
+    {
+      key: "Laba Rugi",
+      value: "laba-rugi",
+    },
+    {
+      key: "Arus Kas",
+      value: "arus-kas",
+    },
+    {
+      key: "Dividen",
+      value: "dividen",
+    },
+    {
+      key: "Rasio",
+      value: "rasio",
+    },
+  ];
   function handleOptionsLaporanKeuangan(e) {
     const { value } = e.target;
-    const dataQ4 = {
-      TAHUNAN: "TAHUNAN",
-      Q4: "Q4",
-      Q3: "Q3",
-      Q2: "Q2",
-      Q1: "Q1",
-    };
+    const dataQ4 = [
+      {
+        key: "Q1",
+        value: "Q1",
+      },
+      {
+        key: "Q2",
+        value: "Q2",
+      },
+      {
+        key: "Q3",
+        value: "Q3",
+      },
+      {
+        key: "Q4",
+        value: "Q4",
+      },
+      {
+        key: "TAHUNAN",
+        value: "TAHUNAN",
+      },
+    ];
     if (value === "neraca-keuangan") {
       // neraca keuangan
-      setOptionsTanggalLaporan({
-        TAHUNAN: "TAHUNAN",
-        Q3: "Q3",
-        Q2: "Q2",
-        Q1: "Q1",
-      });
+      setOptionsTanggalLaporan(optionsJenisLaporan);
     } else if (value === "laba-rugi") {
       // laba rugi
       setOptionsTanggalLaporan(dataQ4);
@@ -67,9 +95,12 @@ export default function Info() {
       setOptionsTanggalLaporan(dataQ4);
     } else if (value === "dividen") {
       // dividen
-      setOptionsTanggalLaporan({
-        TAHUNAN: "TAHUNAN",
-      });
+      setOptionsTanggalLaporan([
+        {
+          key: "TAHUNAN",
+          value: "TAHUNAN",
+        },
+      ]);
     } else if (value === "rasio") {
       // rasio
       setOptionsTanggalLaporan(dataQ4);
