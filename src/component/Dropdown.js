@@ -2,9 +2,8 @@ import React from "react";
 import propTypes from "prop-types";
 import iconDropDown from "../asset/icon/dropdown.svg";
 export default function Dropdown(props) {
-  const { name, options, className, reverse, onChange } = props;
-  let keys = Object.keys(options);
-  if (reverse) keys = keys.reverse();
+  const { name, options, className, onChange } = props;
+
   return (
     <select
       name={name}
@@ -17,9 +16,9 @@ export default function Dropdown(props) {
       className={`w-full appearance-none rounded-sm bg-clip-padding bg-no-repeat bg-green-500 py-1.5 px-3 text-white focus:border-green-500 focus:outline-none ${className}`}
       onChange={onChange}
     >
-      {keys.map((key) => {
+      {options.map(({ key, value }) => {
         return (
-          <option value={options[key]} key={key}>
+          <option value={value} key={key}>
             {key}
           </option>
         );
@@ -32,6 +31,5 @@ Dropdown.prototype = {
   name: propTypes.string,
   options: propTypes.object.isRequired,
   className: propTypes.string,
-  reverse: propTypes.bool,
   onChange: propTypes.func,
 };
