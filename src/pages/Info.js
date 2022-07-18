@@ -19,7 +19,7 @@ export default function Info() {
   // inisialisasi data laporan keuangan
   const [jenisLaporanKeuangan, setJenisLaporanKeuangan] =
     useState("neraca-keuangan");
-  const [jenisTanggalLaporan, setJenisTanggalLaporan] = useState("TAHUNAN");
+  const [jenisTanggalLaporan, setJenisTanggalLaporan] = useState("Q1");
   const [namaEmiten, setNamaEmiten] = useState("Nama Emiten Tidak Ada");
 
   const [dataTbody, setDataTbody] = useState([]);
