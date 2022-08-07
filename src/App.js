@@ -6,7 +6,8 @@ import Info from "./pages/Info";
 import TambahEmiten from "./pages/TambahEmiten";
 import TambahLaporanKeuangan from "./pages/TambahLaporanKeuangan";
 
-import Register from "./pages/Register";
+import Register from "./pages/auth/Register";
+import Activation from "./pages/auth/Activation";
 export default function App() {
   return (
     <Router>
@@ -24,6 +25,7 @@ export default function App() {
         />
 
         <Route path="/auth/register" element={<Register />} />
+        <Route path="/auth/activation/:token" element={<Activation />} />
       </Routes>
     </Router>
   );
