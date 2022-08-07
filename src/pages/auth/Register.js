@@ -11,6 +11,7 @@ import { SERVICE_LAPORAN_KEUANGAN } from "../../config";
 const title = "Daftar Akun";
 document.title = title;
 export default function Register() {
+  const regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   const {
     register,
     handleSubmit,
@@ -115,7 +116,7 @@ export default function Register() {
                   message: "Email Wajib Diisi",
                 },
                 pattern: {
-                  value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                  value: regexEmail,
                   message: "Format email tidak valid",
                 },
               })}
