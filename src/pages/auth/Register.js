@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import Heading from "../../component/Heading";
 import Button from "../../component/Button";
 import validatePassword from "../../helper/validatePassword";
+import validateEmail from "../../helper/validateEmail";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { Navigate } from "react-router-dom";
@@ -11,23 +12,29 @@ import { SERVICE_LAPORAN_KEUANGAN } from "../../config";
 const title = "Daftar Akun";
 document.title = title;
 export default function Register() {
-  const regexEmail = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/;
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const [validationPassword, setValidationPassword] = useState("");
+  const [validationEmail, setValidationEmail] = useState("");
   const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
   const [redirect, setRedirect] = useState("");
 
   async function handleSubmitRegister(data) {
     const { nama_lengkap, email, password } = data;
-    const validate = validatePassword(password);
-    if (validate !== true) {
-      return setValidationPassword(validate);
+    const validatePass = validatePassword(password);
+    const validateMail = validateEmail(email);
+
+    if (typeof validatePass === "string") {
+      return setValidationPassword(validatePass);
+    }
+    if (typeof validateMail === "string") {
+      return setValidationEmail(validateMail);
     }
     setValidationPassword("");
+    setValidationEmail("");
     // send API
     try {
       setIsLoadingSubmit(true);
@@ -115,16 +122,12 @@ export default function Register() {
                   value: true,
                   message: "Email Wajib Diisi",
                 },
-                pattern: {
-                  value: regexEmail,
-                  message: "Format email tidak valid",
-                },
               })}
               className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
               placeholder="masukan format email dengan benar"
             />
             <Heading Tag="h5" color="text-red-400">
-              {errors.email?.message}
+              {errors.email?.message || validationEmail}
             </Heading>
           </div>
           {/* password */}
