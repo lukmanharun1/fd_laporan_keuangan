@@ -1,14 +1,11 @@
 import React, { useState } from "react";
-import Heading from "../component/Heading";
-import Button from "../component/Button";
-import IconAdd from "../component/IconAdd";
-import InputLabel from "../component/InputLabel";
-import axios from "axios";
-import { SERVICE_LAPORAN_KEUANGAN } from "../config";
-import Swal from "sweetalert2";
-import IconArrowBack from "../component/IconArrowBack";
-import validateKodeEmiten from "../helper/validateKodeEmiten";
+import { Heading, Button, InputLabel } from "components";
+import { IconAddSVG, IconArrowBackSVG } from "components/SVG";
+import { SERVICE_LAPORAN_KEUANGAN } from "config";
 import { Navigate } from "react-router-dom";
+import validateKodeEmiten from "helpers/validateKodeEmiten";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function TambahEmiten() {
   const initialState = {
@@ -109,7 +106,7 @@ export default function TambahEmiten() {
     <div className="mx-2">
       {isBackToHome && <Navigate to={"/"} />}
       <Button type="link" href="/" className="md:ml-40 block absolute">
-        <IconArrowBack className="fill-green-500" />
+        <IconArrowBackSVG className="fill-green-500" />
       </Button>
       <Heading Tag="h1" className="text-center mt-3">
         {title}
@@ -155,7 +152,7 @@ export default function TambahEmiten() {
             Jumlah Saham
           </InputLabel>
           <Button isPrimary type="submit" className="mt-2 w-80">
-            <IconAdd className="inline fill-white" />
+            <IconAddSVG className="inline fill-white" />
             Data Emiten
           </Button>
         </form>

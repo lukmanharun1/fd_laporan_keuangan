@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import Heading from "../../component/Heading";
-import Button from "../../component/Button";
-import validatePassword from "../../helper/validatePassword";
-import validateEmail from "../../helper/validateEmail";
+import { Heading, Button } from "components";
+import { Navigate } from "react-router-dom";
+import { SERVICE_LAPORAN_KEUANGAN } from "config";
+
+import validatePassword from "helpers/validatePassword";
+import validateEmail from "helpers/validateEmail";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { Navigate } from "react-router-dom";
 
-import { SERVICE_LAPORAN_KEUANGAN } from "../../config";
 const title = "Daftar Akun";
 document.title = title;
 export default function Register() {

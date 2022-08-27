@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { SERVICE_LAPORAN_KEUANGAN } from "../config";
-import { optionsTahun } from "../constant/optionsTahun";
-import { optionsJenisLaporan } from "../constant/optionsJenisLaporan";
+import { SERVICE_LAPORAN_KEUANGAN } from "config";
+import { optionsTahun } from "constants/optionsTahun";
+import { optionsJenisLaporan } from "constants/optionsJenisLaporan";
+import { Heading, Button, Dropdown } from "components";
+import Table, { TableDownload } from "components/Table";
+import { IconHomeSVG, IconInfoSVG } from "components/SVG";
+import formatTanggalLaporanKeuangan from "helpers/formatTanggalLaporanKeuangan";
+
 import axios from "axios";
-import Table from "../component/Table";
-import Heading from "../component/Heading";
-import TableDownload from "../component/TableDownload";
-import IconHome from "../component/IconHome";
-import IconInfo from "../component/IconInfo";
-import Button from "../component/Button";
-import Dropdown from "../component/Dropdown";
-import formatTanggalLaporanKeuangan from "../helper/formatTanggalLaporanKeuangan";
 const dataThead = ["Nama File", "Download"];
 
 export default function DownloadLaporanKeuangan() {
@@ -63,10 +60,10 @@ export default function DownloadLaporanKeuangan() {
       </Heading>
       <div className="flex justify-center mt-5 relative">
         <Button type="link" href="/">
-          <IconHome />
+          <IconHomeSVG />
         </Button>
         <Button type="link" href={`/info/${kode_emiten}`}>
-          <IconInfo />
+          <IconInfoSVG />
         </Button>
       </div>
       <div className="flex justify-center mt-3">

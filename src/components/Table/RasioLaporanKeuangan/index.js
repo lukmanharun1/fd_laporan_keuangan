@@ -1,7 +1,7 @@
 import React from "react";
 import propTypes from "prop-types";
-import Table from "./Table";
-import Heading from "./Heading";
+import Table from "components/Table";
+import { Heading } from "components";
 
 export default function RasioLaporanKeuangan({ data, jenisLaporan }) {
   const {

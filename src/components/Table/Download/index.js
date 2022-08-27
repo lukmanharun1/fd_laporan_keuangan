@@ -1,8 +1,8 @@
 import React from "react";
-import IconDownload from "./IconDownload";
 import propTypes from "prop-types";
-import Button from "./Button";
-export default function TableDownload(props) {
+import { Button } from "components";
+import { IconDownloadSVG } from "components/SVG";
+export default function Download(props) {
   const { data } = props;
   if (Object.keys(data).length === 0) {
     return (
@@ -25,13 +25,13 @@ export default function TableDownload(props) {
           target="_blank"
           className="inline-block mx-1"
         >
-          <IconDownload />
+          <IconDownloadSVG />
         </Button>
       </td>
     </tr>
   );
 }
 
-TableDownload.propTypes = {
+Download.propTypes = {
   data: propTypes.object.isRequired,
 };

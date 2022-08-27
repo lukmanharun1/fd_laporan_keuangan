@@ -11,7 +11,7 @@ import {
   Legend,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-export default function ChartRasioLaporanKeuangan({ data, jenisLaporan }) {
+export default function RasioLaporanKeuangan({ data, jenisLaporan }) {
   const {
     tanggal,
     harga_saham,
@@ -365,7 +365,7 @@ export default function ChartRasioLaporanKeuangan({ data, jenisLaporan }) {
   );
 }
 
-ChartRasioLaporanKeuangan.propTypes = {
+RasioLaporanKeuangan.propTypes = {
   data: propTypes.object,
   jenisLaporan: propTypes.oneOf(["Q1", "Q2", "Q3", "Q4", "TAHUNAN"]),
 };

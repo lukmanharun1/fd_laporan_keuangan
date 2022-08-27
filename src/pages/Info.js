@@ -1,19 +1,19 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { SERVICE_LAPORAN_KEUANGAN } from "../config";
-import { optionsJenisLaporan } from "../constant/optionsJenisLaporan";
-import Dropdown from "../component/Dropdown";
-import Heading from "../component/Heading";
-import IconArrowBack from "../component/IconArrowBack";
-import IconAdd from "../component/IconAdd";
-import Button from "../component/Button";
+import { SERVICE_LAPORAN_KEUANGAN } from "config";
+import { optionsJenisLaporan } from "constants/optionsJenisLaporan";
+import { Dropdown, Heading, Button } from "components";
+import { IconArrowBackSVG, IconAddSVG } from "components/SVG";
+import {
+  TableLaporanKeuangan,
+  TableRasioLaporanKeuangan,
+} from "components/Table";
 
-import TableLaporanKeuangan from "../component/TableLaporanKeuangan";
-import RasioLaporanKeuangan from "../component/TableRasioLaporanKeuangan";
-
-import ChartLaporanKeuangan from "../component/ChartLaporanKeuangan";
-import ChartRasioLaporanKeuangan from "../component/ChartRasioLaporanKeuangan";
+import {
+  ChartRasioLaporanKeuangan,
+  ChartLaporanKeuangan,
+} from "components/Chart";
 
 export default function Info() {
   // inisialisasi data laporan keuangan
@@ -147,7 +147,7 @@ export default function Info() {
   return (
     <div className="mx-2">
       <Button type="link" href="/" className="absolute">
-        <IconArrowBack className="fill-green-500" />
+        <IconArrowBackSVG className="fill-green-500" />
       </Button>
       <Heading Tag="h3" className="text-center mt-3">
         Laporan Keuangan {namaEmiten}
@@ -174,7 +174,7 @@ export default function Info() {
         type="link"
         className="h-10 ml-3"
       >
-        <IconAdd className="inline fill-white" />
+        <IconAddSVG className="inline fill-white" />
         Data Laporan Keuangan
       </Button>
       {/* tampilkan table laporan keuangan jika di pilih dropdown selain rasio */}
@@ -191,7 +191,7 @@ export default function Info() {
       {jenisLaporanKeuangan === "rasio" &&
         dataRasio &&
         showChartOrTable === "table" && (
-          <RasioLaporanKeuangan
+          <TableRasioLaporanKeuangan
             data={dataRasio}
             jenisLaporan={jenisTanggalLaporan}
           />

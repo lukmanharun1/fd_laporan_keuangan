@@ -1,8 +1,8 @@
 import React from "react";
-import Table from "./Table";
+import Table from "components/Table";
 import propTypes from "prop-types";
 
-export default function TableLaporanKeuangan(props) {
+export default function LaporanKeuangan(props) {
   const { dataTbody, namaLaporan, jenisLaporan } = props;
   const dataThead = [jenisLaporan];
   const propertiNamaLaporan = namaLaporan.replace("-", "_"); // neraca-keuangan -> neraca_keuangan
@@ -122,7 +122,7 @@ export default function TableLaporanKeuangan(props) {
     </>
   );
 }
-TableLaporanKeuangan.propTypes = {
+LaporanKeuangan.propTypes = {
   dataTbody: propTypes.array,
   namaLaporan: propTypes.oneOf([
     "neraca-keuangan",

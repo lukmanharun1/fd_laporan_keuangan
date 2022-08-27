@@ -12,7 +12,7 @@ import { Bar } from "react-chartjs-2";
 
 import propTypes from "prop-types";
 
-export default function TableLaporanKeuangan(props) {
+export default function ChartLaporanKeuangan(props) {
   ChartJS.register(
     CategoryScale,
     LinearScale,
@@ -160,7 +160,7 @@ export default function TableLaporanKeuangan(props) {
     </div>
   );
 }
-TableLaporanKeuangan.propTypes = {
+ChartLaporanKeuangan.propTypes = {
   dataTbody: propTypes.array,
   namaLaporan: propTypes.oneOf([
     "neraca-keuangan",

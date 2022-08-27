@@ -1,15 +1,12 @@
 import React, { useState } from "react";
-import Heading from "../component/Heading";
-import Button from "../component/Button";
-import IconAdd from "../component/IconAdd";
-import axios from "axios";
+import { Heading, Button, Border } from "components";
 import { SERVICE_LAPORAN_KEUANGAN } from "../config";
-import Swal from "sweetalert2";
-import IconArrowBack from "../component/IconArrowBack";
-import iconDropDown from "../asset/icon/dropdown.svg";
-import Border from "../component/Border";
 import { useForm } from "react-hook-form";
 import { Navigate, useParams } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { IconArrowBackSVG, IconAddSVG } from "components/SVG";
+import iconDropDown from "assets/icon/dropdown.svg";
 
 export default function TambahEmiten() {
   const { kode_emiten } = useParams();
@@ -282,7 +279,7 @@ export default function TambahEmiten() {
         href={`/info/${kode_emiten}`}
         className="md:ml-40 block absolute"
       >
-        <IconArrowBack className="fill-green-500" />
+        <IconArrowBackSVG className="fill-green-500" />
       </Button>
       <Heading Tag="h2" className="text-center mt-3">
         {title}
@@ -574,7 +571,7 @@ export default function TambahEmiten() {
             </>
           )}
           <Button isPrimary type="submit" className="mt-2 w-80 mb-10">
-            <IconAdd className="inline fill-white" />
+            <IconAddSVG className="inline fill-white" />
             Data Laporan Keuangan
           </Button>
         </form>

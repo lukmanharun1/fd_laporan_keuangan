@@ -8,6 +8,7 @@ import TambahLaporanKeuangan from "./pages/TambahLaporanKeuangan";
 
 import Register from "./pages/auth/Register";
 import Activation from "./pages/auth/Activation";
+import NotFound from "./pages/error/NotFound";
 export default function App() {
   return (
     <Router>
@@ -26,6 +27,7 @@ export default function App() {
 
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/activation/:token" element={<Activation />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
   );

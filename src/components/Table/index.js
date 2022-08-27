@@ -36,3 +36,8 @@ Table.propTypes = {
   classTh: propTypes.string,
   classTd: propTypes.string,
 };
+
+export { default as TableDownload } from "./Download";
+export { default as TableEmiten } from "./Emiten";
+export { default as TableLaporanKeuangan } from "./LaporanKeuangan";
+export { default as TableRasioLaporanKeuangan } from "./RasioLaporanKeuangan";
