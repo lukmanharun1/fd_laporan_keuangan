@@ -6,4 +6,4 @@ export { default as IconHomeSVG } from "./icons/Home";
 export { default as IconInfoSVG } from "./icons/Info";
 
 // illustrations
-export { default as IllustrationsPageNotFoundSVG } from "./illustrations/PageNotFound";
+export { default as IllustrationPageNotFoundSVG } from "./illustrations/PageNotFound";
