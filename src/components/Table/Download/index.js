@@ -25,7 +25,7 @@ export default function Download(props) {
           target="_blank"
           className="inline-block mx-1"
         >
-          <IconDownloadSVG />
+          <IconDownloadSVG className="fill-green-500" />
         </Button>
       </td>
     </tr>

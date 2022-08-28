@@ -60,10 +60,10 @@ export default function DownloadLaporanKeuangan() {
       </Heading>
       <div className="flex justify-center mt-5 relative">
         <Button type="link" href="/">
-          <IconHomeSVG />
+          <IconHomeSVG className="fill-green-500" />
         </Button>
         <Button type="link" href={`/info/${kode_emiten}`}>
-          <IconInfoSVG />
+          <IconInfoSVG className="fill-green-500" />
         </Button>
       </div>
       <div className="flex justify-center mt-3">
