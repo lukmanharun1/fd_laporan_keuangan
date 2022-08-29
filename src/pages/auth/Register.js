@@ -65,7 +65,8 @@ export default function Register() {
           confirmButton: "p-2 text-white bg-red-400 rounded-sm",
         },
         buttonsStyling: false,
-        title: "Data daftar akun Gagal Ditambahkan",
+        title:
+          error.response.data.message ?? "Data daftar akun Gagal Ditambahkan",
         confirmButtonText: "Maaf Sayang Sekali",
         icon: "error",
       });
@@ -86,7 +87,7 @@ export default function Register() {
           <img
             src={analisisLaporanKeuangan}
             alt="ilustrasi analisis laporan keuangan"
-            className="w-56 h-56 -mt-5"
+            className="w-80 h-56 -mt-2"
           />
           {/* nama lengkap */}
           <div className="mt-2">
