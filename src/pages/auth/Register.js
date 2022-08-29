@@ -9,9 +9,11 @@ import validateEmail from "helpers/validateEmail";
 import axios from "axios";
 import Swal from "sweetalert2";
 
+import analisisLaporanKeuangan from "assets/images/analisis-laporan-keuangan.png";
 const title = "Daftar Akun";
-document.title = title;
+
 export default function Register() {
+  document.title = title;
   const {
     register,
     handleSubmit,
@@ -81,6 +83,11 @@ export default function Register() {
           method="post"
           onSubmit={handleSubmit(handleSubmitRegister)}
         >
+          <img
+            src={analisisLaporanKeuangan}
+            alt="ilustrasi analisis laporan keuangan"
+            className="w-56 h-56 -mt-5"
+          />
           {/* nama lengkap */}
           <div className="mt-2">
             <label
