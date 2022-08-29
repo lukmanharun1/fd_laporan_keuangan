@@ -1,29 +1,54 @@
 import axios from "axios";
-import React, { useEffect } from "react";
-import validateEmail from "helpers/validateEmail";
+import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
 import { useJwt } from "react-jwt";
 import { SERVICE_LAPORAN_KEUANGAN } from "config";
+import { Navigate } from "react-router-dom";
+import NotFound from "pages/error/NotFound";
+import Swal from "sweetalert2";
 
 const title = "Aktivasi Akun";
-document.title = title;
 
 export default function Activation() {
+  document.title = title;
   const { token } = useParams();
   const { decodedToken, isExpired } = useJwt(token);
-  if (isExpired) {
-    return alert("404");
+  const [redirect, setRedirect] = useState("");
+  async function sendActivation() {
+    try {
+      const response = await axios.post(
+        `${SERVICE_LAPORAN_KEUANGAN}/auth/activation`,
+        { token }
+      );
+      Swal.fire({
+        customClass: {
+          confirmButton: "p-2 text-white bg-green-500 rounded-sm",
+        },
+        buttonsStyling: false,
+        title: response.data.message,
+        confirmButtonText: "Okey Berhasil",
+        icon: "success",
+      });
+    } catch (error) {
+      Swal.fire({
+        customClass: {
+          confirmButton: "p-2 text-white bg-red-400 rounded-sm",
+        },
+        buttonsStyling: false,
+        title: error.data.message,
+        confirmButtonText: "Maaf Sayang Sekali",
+        icon: "error",
+      });
+    }
+    setRedirect("/auth/login");
   }
-  if (
-    !decodedToken?.nama_lengkap ||
-    typeof validateEmail(decodedToken?.email) === "string" ||
-    !decodedToken?.password
-  ) {
-    return alert("404");
+  useEffect(() => {
+    sendActivation();
+  }, []);
+  if (isExpired || !decodedToken) {
+    return <NotFound />;
   }
-  // axios
-  //   .post(`${SERVICE_LAPORAN_KEUANGAN}/auth/activation`, { token })
-  //   .then((data) => {});
-  return <div>{token}</div>;
+
+  return <div>{redirect && <Navigate to={redirect} />}</div>;
 }
