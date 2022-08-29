@@ -1,14 +1,16 @@
 import React from "react";
 import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
-import Home from "./pages/Home";
-import DownloadLaporanKeuangan from "./pages/DownloadLaporanKeuangan";
-import Info from "./pages/Info";
-import TambahEmiten from "./pages/TambahEmiten";
-import TambahLaporanKeuangan from "./pages/TambahLaporanKeuangan";
+import Home from "pages/Home";
+import DownloadLaporanKeuangan from "pages/DownloadLaporanKeuangan";
+import Info from "pages/Info";
+import TambahEmiten from "pages/TambahEmiten";
+import TambahLaporanKeuangan from "pages/TambahLaporanKeuangan";
 
-import Register from "./pages/auth/Register";
-import Activation from "./pages/auth/Activation";
-import NotFound from "./pages/error/NotFound";
+import Register from "pages/auth/Register";
+import Activation from "pages/auth/Activation";
+import NotFound from "pages/error/NotFound";
+import Login from "pages/auth/Login";
+
 export default function App() {
   return (
     <Router>
@@ -27,6 +29,7 @@ export default function App() {
 
         <Route path="/auth/register" element={<Register />} />
         <Route path="/auth/activation/:token" element={<Activation />} />
+        <Route path="/auth/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
