@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "helpers/axios";
 import React, { useState, useEffect } from "react";
 
 import { useParams } from "react-router-dom";

@@ -4,7 +4,7 @@ import { IconAddSVG, IconArrowBackSVG } from "components/SVG";
 import { SERVICE_LAPORAN_KEUANGAN } from "config";
 import { Navigate } from "react-router-dom";
 import validateKodeEmiten from "helpers/validateKodeEmiten";
-import axios from "axios";
+import axios from "helpers/axios";
 import Swal from "sweetalert2";
 
 export default function TambahEmiten() {

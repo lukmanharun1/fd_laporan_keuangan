@@ -8,7 +8,7 @@ import Table, { TableDownload } from "components/Table";
 import { IconHomeSVG, IconInfoSVG } from "components/SVG";
 import formatTanggalLaporanKeuangan from "helpers/formatTanggalLaporanKeuangan";
 
-import axios from "axios";
+import axios from "helpers/axios";
 const dataThead = ["Nama File", "Download"];
 
 export default function DownloadLaporanKeuangan() {

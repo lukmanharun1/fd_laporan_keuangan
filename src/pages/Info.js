@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "helpers/axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SERVICE_LAPORAN_KEUANGAN } from "config";

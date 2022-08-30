@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Component } from "react";
 import { useNavigate } from "react-router-dom";
 import { useJwt } from "react-jwt";
-import axios from "axios";
+import axios from "helpers/axios";
 import { SERVICE_LAPORAN_KEUANGAN } from "config";
 
 export default function PrivateRoute({ element }) {

@@ -3,7 +3,7 @@ import { Heading, Button, Border } from "components";
 import { SERVICE_LAPORAN_KEUANGAN } from "../config";
 import { useForm } from "react-hook-form";
 import { Navigate, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "helpers/axios";
 import Swal from "sweetalert2";
 import { IconArrowBackSVG, IconAddSVG } from "components/SVG";
 import iconDropDown from "assets/icon/dropdown.svg";

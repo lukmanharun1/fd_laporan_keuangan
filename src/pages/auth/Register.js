@@ -6,7 +6,7 @@ import { SERVICE_LAPORAN_KEUANGAN } from "config";
 
 import validatePassword from "helpers/validatePassword";
 import validateEmail from "helpers/validateEmail";
-import axios from "axios";
+import axios from "helpers/axios";
 import Swal from "sweetalert2";
 
 import analisisLaporanKeuangan from "assets/images/analisis-laporan-keuangan.png";

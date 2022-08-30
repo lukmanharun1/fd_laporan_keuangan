@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios from "helpers/axios";
 import Table, { TableEmiten } from "components/Table";
 import { Heading, Button } from "components";
 import { SERVICE_LAPORAN_KEUANGAN } from "config";
@@ -17,7 +17,6 @@ export default function Home() {
   const [dataEmiten, setDataEmiten] = useState([]);
   const [cariEmiten, setCariEmiten] = useState([]);
   const [timeoutId, setTimeoutId] = useState(0);
-  const token = localStorage.getItem("token");
 
   const handleCariKodeEmiten = async (e) => {
     clearTimeout(timeoutId);
@@ -31,12 +30,7 @@ export default function Home() {
             kode_emiten: cariEmiten,
             page: 1,
             per_page: 1000,
-          }),
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
+          })
         );
         setCariEmiten(getEmiten.data.data.data);
         setTimeoutId(timeOutId);
@@ -47,12 +41,7 @@ export default function Home() {
             nama_emiten: cariEmiten,
             pag: 1,
             per_page: 20,
-          }),
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
+          })
         );
         setCariEmiten(getEmiten.data.data.data);
         this.setState({ cariEmiten: getEmiten.data.data.data });
@@ -71,12 +60,7 @@ export default function Home() {
         queryParams(`${SERVICE_LAPORAN_KEUANGAN}/emiten`, {
           page: 1,
           per_page: 1000,
-        }),
-        {
-          headers: {
-            Authorization: token,
-          },
-        }
+        })
       )
       .then((getAllEmiten) => {
         const { data } = getAllEmiten.data.data;
