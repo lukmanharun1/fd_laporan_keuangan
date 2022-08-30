@@ -141,7 +141,7 @@ export default function Register() {
           {/* password */}
           <div className="mt-2">
             <label
-              htmlFor="email"
+              htmlFor="password"
               className={`text-green-500 font-semibold text-lg block`}
             >
               Password
