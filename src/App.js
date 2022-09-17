@@ -28,7 +28,7 @@ export default function App() {
         />
         <Route
           path="tambah-data-emiten"
-          element={<PrivateRoute element={<TambahEmiten />} />}
+          element={<PrivateRoute element={<TambahEmiten />} isAdmin />}
         />
         <Route
           path="tambah-data-laporan-keuangan/:kode_emiten"

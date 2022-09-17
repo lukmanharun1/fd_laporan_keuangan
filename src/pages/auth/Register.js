@@ -110,6 +110,7 @@ export default function Register() {
               })}
               className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
               placeholder="masukan nama lengkap anda"
+              autoFocus
             />
             <Heading Tag="h5" color="text-red-400">
               {errors.nama_lengkap?.message}

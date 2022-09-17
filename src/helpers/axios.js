@@ -1,6 +1,6 @@
-import axios from "helpers/axios";
+import axios from "axios";
 
-import { REACT_APP_HOST } from "config";
+import { REACT_APP_HOST } from "../config";
 
 const instances = axios.create({
   baseURL: `${REACT_APP_HOST}`,

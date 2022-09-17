@@ -96,6 +96,7 @@ export default function Login() {
             <input
               id="email"
               type="email"
+              autoFocus
               {...register("email", {
                 required: {
                   value: true,
