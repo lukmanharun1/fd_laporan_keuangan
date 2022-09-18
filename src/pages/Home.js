@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "helpers/axios";
 import Table, { TableEmiten } from "components/Table";
-import { Heading, Button } from "components";
+import { Heading, Button, IsAdmin } from "components";
 import { SERVICE_LAPORAN_KEUANGAN } from "config";
 import queryParams from "helpers/queryParams";
 import { IconAddSVG } from "components/SVG";
@@ -83,15 +83,17 @@ export default function Home() {
           focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 -ml-[22%] w-56 md:w-64 h-10 justify-items-center"
             onChange={handleCariKodeEmiten}
           />
-          <Button
-            isPrimary
-            href="/tambah-data-emiten"
-            type="link"
-            className="mt-3 h-10"
-          >
-            <IconAddSVG className="inline fill-white" />
-            Data Emiten
-          </Button>
+          <IsAdmin>
+            <Button
+              isPrimary
+              href="/tambah-data-emiten"
+              type="link"
+              className="mt-3 h-10"
+            >
+              <IconAddSVG className="inline fill-white" />
+              Data Emiten
+            </Button>
+          </IsAdmin>
         </div>
         <div className="flex justify-center">
           <Table

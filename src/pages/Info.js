@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { SERVICE_LAPORAN_KEUANGAN } from "config";
 import { optionsJenisLaporan } from "constants/optionsJenisLaporan";
-import { Dropdown, Heading, Button } from "components";
+import { Dropdown, Heading, Button, IsAdmin } from "components";
 import { IconArrowBackSVG, IconAddSVG } from "components/SVG";
 import {
   TableLaporanKeuangan,
@@ -168,15 +168,17 @@ export default function Info() {
         className="ml-3 mb-3 w-28"
         onChange={handleChartOrTable}
       />
-      <Button
-        isPrimary
-        href={`/tambah-data-laporan-keuangan/${kode_emiten}`}
-        type="link"
-        className="h-10 ml-3"
-      >
-        <IconAddSVG className="inline fill-white" />
-        Data Laporan Keuangan
-      </Button>
+      <IsAdmin>
+        <Button
+          isPrimary
+          href={`/tambah-data-laporan-keuangan/${kode_emiten}`}
+          type="link"
+          className="h-10 ml-3"
+        >
+          <IconAddSVG className="inline fill-white" />
+          Data Laporan Keuangan
+        </Button>
+      </IsAdmin>
       {/* tampilkan table laporan keuangan jika di pilih dropdown selain rasio */}
       {dataTbody.length > 0 &&
         jenisLaporanKeuangan !== "rasio" &&

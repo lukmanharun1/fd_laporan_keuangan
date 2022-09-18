@@ -32,7 +32,7 @@ export default function App() {
         />
         <Route
           path="tambah-data-laporan-keuangan/:kode_emiten"
-          element={<PrivateRoute element={<TambahLaporanKeuangan />} />}
+          element={<PrivateRoute element={<TambahLaporanKeuangan />} isAdmin />}
         />
 
         <Route path="auth/register" element={<Register />} />
