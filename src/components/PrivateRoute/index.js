@@ -17,46 +17,27 @@ export default function PrivateRoute({ element, isAdmin }) {
   if (isAdmin && decodedToken?.role !== "admin") {
     navigate("/");
   }
-  async function sendVerifyToken() {
-    try {
-      const res = await axios.post(
-        `${SERVICE_LAPORAN_KEUANGAN}/auth/verify-token`,
-        {},
-        {
-          headers: {
-            Authorization: token,
-          },
+  useEffect(() => {
+    async function sendVerifyToken() {
+      try {
+        const res = await axios.post(
+          `${SERVICE_LAPORAN_KEUANGAN}/auth/verify-token`,
+          {},
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (res.data.status === "success") {
+          return setIsRender(true);
         }
-      );
-      if (res.data.status === "success") {
-        return setIsRender(true);
+      } catch (error) {
+        return navigate("/auth/login");
       }
-    } catch (error) {
-      return navigate("/auth/login");
     }
-  }
-  sendVerifyToken();
-  // useEffect(() => {
-  //   async function sendVerifyToken() {
-  //     try {
-  //       const res = await axios.post(
-  //         `${SERVICE_LAPORAN_KEUANGAN}/auth/verify-token`,
-  //         {},
-  //         {
-  //           headers: {
-  //             Authorization: token,
-  //           },
-  //         }
-  //       );
-  //       if (res.data.status === "success") {
-  //         return setIsRender(true);
-  //       }
-  //     } catch (error) {
-  //       return navigate("/auth/login");
-  //     }
-  //   }
-  //   sendVerifyToken();
-  // }, [navigate]);
+    sendVerifyToken();
+  }, []);
 
   if (isRender) {
     return element;
