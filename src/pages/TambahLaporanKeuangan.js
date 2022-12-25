@@ -497,7 +497,7 @@ export default function TambahEmiten() {
                   </label>
                   <input
                     id={name}
-                    type="number"
+                    type="text"
                     accept="application/pdf"
                     {...register(name, {
                       required: {
