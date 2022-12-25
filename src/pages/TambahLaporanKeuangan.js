@@ -296,7 +296,7 @@ export default function TambahEmiten() {
       <Heading Tag="h2" className="text-center mt-3">
         {title}
       </Heading>
-      <div className="flex justify-center mt-3">
+      <div className="flex justify-center mt-5">
         <form
           action="/"
           method="post"
@@ -304,9 +304,26 @@ export default function TambahEmiten() {
           encType="multipart/form-data"
         >
           {/* jenis laporan | tahun */}
-          <div className="grid grid-cols-2 gap-x-2">
+          <div className="grid grid-cols-5 gap-x-3 gap-y-1" style={{ gridTemplateColumns: '150px 100px 350px 250px 200px' }}>
             <Heading Tag="h3">Jenis Laporan</Heading>
             <Heading Tag="h3">Tahun</Heading>
+            <label
+              htmlFor="file_laporan_keuangan"
+              className={`text-green-500 font-semibold text-lg block`}
+            >
+              File Laporan Keuangan <small className="text-red-400">.pdf</small>
+            </label>
+             <label
+              htmlFor="harga_saham"
+              className={`text-green-500 font-semibold text-lg block`}
+            >
+              Harga Saham <small className="text-red-400">*</small>
+            </label>
+          {/* satuan */}
+          <Heading Tag="h3" className="mt-2">
+            Satuan Rupiah
+          </Heading>
+
             <select
               style={{
                 backgroundImage: `url(${iconDropDown})`,
@@ -342,64 +359,47 @@ export default function TambahEmiten() {
                 );
               })}
             </select>
-          </div>
-          {/* file laporan keuangan */}
-          <div className="mt-2">
-            <label
-              htmlFor="file_laporan_keuangan"
-              className={`text-green-500 font-semibold text-lg block`}
-            >
-              File Laporan Keuangan <small className="text-red-400">.pdf</small>
-            </label>
-            <input
-              id="file_laporan_keuangan"
-              type="file"
-              accept="application/pdf"
-              {...register("file_laporan_keuangan", {
-                required: {
-                  value: true,
-                  message: "File Laporan Keuangan Wajib Diisi",
-                },
-              })}
-              className="cursor-pointer p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
-            />
-            <Heading Tag="h5" color="text-red-400">
-              {errors.file_laporan_keuangan?.message}
-            </Heading>
-          </div>
-          {/* harga saham */}
-          <div className="mt-2">
-            <label
-              htmlFor="harga_saham"
-              className={`text-green-500 font-semibold text-lg block`}
-            >
-              Harga Saham <small className="text-red-400">*</small>
-            </label>
-            <input
-              id="harga_saham"
-              type="number"
-              accept="application/pdf"
-              {...register("harga_saham", {
-                required: {
-                  value: true,
-                  message: "Harga Saham Wajib Diisi",
-                },
-                min: {
-                  value: 50,
-                  message: "Harga Saham Harus 50 keatas",
-                },
-              })}
-              className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
-            />
-            <Heading Tag="h5" color="text-red-400">
-              {errors.harga_saham?.message}
-            </Heading>
-          </div>
+            {/* file laporan keuangan */}
+            <div>
+              <input
+                id="file_laporan_keuangan"
+                type="file"
+                accept="application/pdf"
+                {...register("file_laporan_keuangan", {
+                  required: {
+                    value: true,
+                    message: "File Laporan Keuangan Wajib Diisi",
+                  },
+                })}
+                className="cursor-pointer p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-full"
+              />
+              <Heading Tag="h5" color="text-red-400">
+                {errors.file_laporan_keuangan?.message}
+              </Heading>
+            </div>
 
-          {/* satuan */}
-          <Heading Tag="h3" className="mt-2">
-            Satuan Rupiah
-          </Heading>
+            {/* harga saham */}
+            <div>
+              <input
+                id="harga_saham"
+                type="number"
+                accept="application/pdf"
+                {...register("harga_saham", {
+                  required: {
+                    value: true,
+                    message: "Harga Saham Wajib Diisi",
+                  },
+                  min: {
+                    value: 50,
+                    message: "Harga Saham Harus 50 keatas",
+                  },
+                })}
+                className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-full"
+              />
+              <Heading Tag="h5" color="text-red-400">
+                {errors.harga_saham?.message}
+              </Heading>
+            </div>
 
           {isDollar ? (
             <>
@@ -418,7 +418,7 @@ export default function TambahEmiten() {
                   },
                 })}
                 placeholder="Masukkan Nilai Kurs Dollar Ke Rupiah"
-                className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-80"
+                className="p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-full"
               />
               <Heading Tag="h5" color="text-red-400">
                 {errors.satuan_rupiah?.message}
@@ -442,11 +442,15 @@ export default function TambahEmiten() {
               <option value="dollar">Dollar</option>
             </select>
           )}
+          </div>
+          
+
+         
           {/* neraca keuangan */}
           <Heading Tag="h3" className="mt-2">
             Neraca Keuangan <small className="text-red-400">*</small>
           </Heading>
-          <Border className="p-2">
+          <Border className="p-2 grid grid-cols-4 gap-3">
             {/* inputan neraca keuangan */}
             {dataNeracaKeuangan.map(({ name, text }) => {
               return (
@@ -484,7 +488,7 @@ export default function TambahEmiten() {
           <Heading Tag="h3" className="mt-2">
             Laba Rugi <small className="text-red-400">*</small>
           </Heading>
-          <Border className="p-2">
+          <Border className="p-2 grid grid-cols-4 gap-3">
             {/* inputan laba rugi */}
             {dataLabaRugi.map(({ name, text }) => {
               return (
@@ -519,7 +523,7 @@ export default function TambahEmiten() {
           <Heading Tag="h3" className="mt-2">
             Arus Kas <small className="text-red-400">*</small>
           </Heading>
-          <Border className="p-2">
+          <Border className="p-2 grid grid-cols-4 gap-3">
             {/* inputan arus kas */}
             {dataArusKas.map(({ name, text }) => {
               return (
@@ -584,7 +588,7 @@ export default function TambahEmiten() {
               </Border>
             </>
           )}
-          <Button isPrimary type="submit" className="mt-2 w-80 mb-10">
+          <Button isPrimary type="submit" className="mt-2 rounded-md p-2 mb-10">
             <IconAddSVG className="inline fill-white" />
             Data Laporan Keuangan
           </Button>
