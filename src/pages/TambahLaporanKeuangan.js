@@ -63,6 +63,18 @@ export default function TambahEmiten() {
     }
   }
 
+  function handleInputLaporanKeuangan() {
+    let { value } = this.ref
+    // remove dot (.)
+    value = value.replaceAll('.', '').replaceAll(',', '')
+    // remove (
+    if (value.includes('(')) {
+      // value minus
+      value = `-${value.replaceAll('(', '')}`;
+    }
+    this.ref.value = parseInt(value) || 0
+  }
+
   async function handleTambahLaporanKeuangan(data) {
     const {
       file_laporan_keuangan,
@@ -447,8 +459,7 @@ export default function TambahEmiten() {
                   </label>
                   <input
                     id={name}
-                    type="number"
-                    accept="application/pdf"
+                    type="text"
                     {...register(name, {
                       min: {
                         value: 0,
@@ -458,6 +469,7 @@ export default function TambahEmiten() {
                         value: true,
                         message: `${text} Wajib Diisi`,
                       },
+                     onChange: handleInputLaporanKeuangan
                     })}
                     className={`p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-72`}
                   />
@@ -492,6 +504,7 @@ export default function TambahEmiten() {
                         value: true,
                         message: `${text} Wajib Diisi`,
                       },
+                      onChange: handleInputLaporanKeuangan
                     })}
                     className={`p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-72`}
                   />
@@ -519,13 +532,14 @@ export default function TambahEmiten() {
                   </label>
                   <input
                     id={name}
-                    type="number"
+                    type="text"
                     accept="application/pdf"
                     {...register(name, {
                       required: {
                         value: true,
                         message: `${text} Wajib Diisi`,
                       },
+                      onChange: handleInputLaporanKeuangan
                     })}
                     className={`p-2 bg-white border border-slate-300 rounded-md text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:border-green-500 focus:ring-1 placeholder:text-gray-500 focus:ring-green-500 w-72`}
                   />
