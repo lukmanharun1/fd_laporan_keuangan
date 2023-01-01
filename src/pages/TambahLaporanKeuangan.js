@@ -571,7 +571,7 @@ export default function TambahEmiten() {
                   </label>
                   <input
                     id="dividen"
-                    type="number"
+                    type="text"
                     placeholder="optional"
                     {...register("dividen", {
                       min: {
